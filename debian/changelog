@@ -1,88 +1,250 @@
-php5 (5.3.13-1~tooptee1) lucid; urgency=low
+php5 (5.4.3-1~tooptee1) unstable; urgency=low
 
-  * dotBuntu build for lucid 
+  * dotBuntu build
 
- -- Jean Baptiste Favre <webmaster@jbfavre.org>  Thu, 17 May 2012 11:58:34 +0200
+ -- Jean Baptiste Favre <webmaster@jbfavre.org>  Fri, 18 May 2012 10:59:14 +0200
 
-php5 (5.3.10-1~tooptee1) lucid; urgency=low
+php5 (5.4.3-4) unstable; urgency=low
 
-  * dotBuntu build for lucid
+  * Fix tests ([ERROR] Can't start server: bind-address refers to
+    multiple interfaces!) (Closes: #672588)
 
- -- Jean Baptiste Favre <webmaster@jbfavre.org>  Wed, 16 May 2012 21:43:20 +0200
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 15 May 2012 18:01:55 +0200
 
-php5 (5.3.10-1ubuntu3) precise; urgency=low
+php5 (5.4.3-3) unstable; urgency=low
 
-  * Cherry picked fixes from Debian testing:
-    - d/maxlifetime: Improve maxlifetime script to scan for more SAPIs and 
-      scan all *.ini in conf.d directory.
-      (LP: #916065).
-    - d/libapache2-mod-php5.postinst,libapache2-mod-php5filter.postinst: 
-      Restart apache on first install to ensure module is fully enabled.
-      (LP: #953081).
+  * Disable log redirection in debian/setup-mysql.sh to help diagnose
+    the setup-mysql.sh failure (still not fixed, but not reproduceable
+    on my local box)
 
- -- James Page <james.page@ubuntu.com>  Wed, 11 Apr 2012 14:27:10 +0100
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 15 May 2012 14:27:12 +0200
 
-php5 (5.3.10-1ubuntu2) precise; urgency=low
+php5 (5.4.3-2) unstable; urgency=low
 
-  * Pre-Depend on a new enough version of dpkg for dpkg-maintscript-helper
-    rather than checking whether it exists at run-time, leading to more
-    predictable behaviour on upgrades.
+  * Add --no-defaults to rest of the mysql commands in setup-mysql.sh
+    script (Closes: #672588)
+  * Add debugging info to debian/setup-mysql.sh to help diagnose any
+    further problems
 
- -- Colin Watson <cjwatson@ubuntu.com>  Mon, 05 Mar 2012 12:21:35 +0000
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 15 May 2012 10:26:34 +0200
 
-php5 (5.3.10-1ubuntu1) precise; urgency=low
+php5 (5.4.3-1) unstable; urgency=low
 
-  * Merge from Debian testing.  Remaining changes:
-    - d/control: build-depend on mysql 5.5 instead of 5.1 for running tests.
-    - d/setup-mysql.sh: modify to work with mysql 5.5 differences
-    - debian/rules: export DEB_HOST_MULTIARCH properly.
-    - Only build php5-sqlite for sqlite3, dropping the obsolete sqlite2.
-    - Add build-dependency on lemon, which we now need.
-    - Dropped firebird2.1-dev, libc-client-dev, libmcrypt-dev as it is in universe.
-    - Dropped libcurl-dev not in the archive.
-    - debian/control: replace build-depends on mysql-server with
-      mysql-server-core-5.5 and mysql-client-5.5 to avoid upstart and
-      mysql-server-5.5 postinst confusion with starting up multiple
-      mysqlds listening on the same port.
-    - Dropped php5-imap, php5-interbase, php5-mcrypt since we have versions
-      already in universe.
-    - Suggest php5-suhosin rather than recommends.
-    - Dropped libonig-dev and libqgdbm since its in universe. (libonig MIR
-      has been declined due to an inactive upstream. So this is probably
-      a permanent change).
-    - modulelist: Drop imap, interbase, sybase, and mcrypt.
-    - debian/rules:
-      * Dropped building of mcrypt, imap, and interbase.
-      * Install apport hook for php5.
-      * stop mysql instance on clean just in case we failed in tests
-    - debian/control: Recommend php5-dev for php-pear.
-  * Dropped Changes:
-    - d/patches/CVE-2011-4566.patch: Applied upstream
-    - debian/rules: --enable-pcntl for cgi as well. (Applied in Debian)
-  * d/rules: enable Suhosin patch with PHP5_SUHOSIN=yes
-  * d/NEWS: add note explaining that SUHOSIN *is* enabled in the Ubuntu
-    package.
-  * d/rules: Simplify apache config settings since we never build 
-    interbase or firebird.
+  * Imported Upstream version 5.4.3
+    + CVE-2012-2311: Complete fix for PHP-CGI query string parameter
+      vulnerability
+    + CVE-2012-2329: Fix a buffer overflow vulnerability in the
+      apache_request_headers() (PHP 5.3 is not vulnerable)
 
- -- Clint Byrum <clint@ubuntu.com>  Thu, 16 Feb 2012 03:17:18 -0800
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 09 May 2012 08:48:10 +0200
 
-php5 (5.3.10-1) unstable; urgency=high
+php5 (5.4.2-1) unstable; urgency=low
 
-  [ Raphael Geissert ]
-  * Remove myself from uploaders
-  * Randomly choose the mysql server's port
+  * Imported Upstream version 5.4.2
+    + CVE-2012-1823: Fix PHP-CGI query string parameter vulnerability.
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 04 May 2012 08:47:42 +0200
+
+php5 (5.4.1-1) unstable; urgency=low
+
+  * Imported Upstream version 5.4.1
+    + Fixed insufficient validating of upload name leading to corrupted
+      $_FILES indices). (CVE-2012-1172).
+    + Add open_basedir checks to readline_write_history and
+      readline_read_history.
+    + Add Apache 2.4 support (.deb package in experimental comming soon)
+    + Added debug info handler to DOM objects.
+  * Remove Breaks: on php applications on maintainer requests:
+    + simplesamlphp
+    + php-horde-auth
+  * Add better configuration snippet for CGI (Closes: #571795)
+  * Update a description of PHP language based on the text from upstream
+    web page (http://www.php.net/manual/en/intro-whatis.php)
+  * Enable embed SAPI (Closes: #380731)
+  * Add lintian override for libphp5-embed: embedded-library
+    usr/lib/libphp5.so: file
+  * Add ldconfig to libphp5-embed.{postinst,postrm}
+  * Fix #EXTRA# processing for SAPIs (extra ; at the end of sed cmd)
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 03 May 2012 13:29:07 +0200
+
+php5 (5.4.1~rc1-1) unstable; urgency=low
+
+  * Add information about flavor of INI file inside the INI file,
+    install php.ini-development INI to /usr/share/php5 (Closes: #667711)
+  * Imported Upstream version 5.4.1~rc1
+  * Update patches for the 5.4.1RC1 release
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 06 Apr 2012 15:04:08 +0200
+
+php5 (5.4.0-4) unstable; urgency=low
+
+  * Change id -u+getent combo to whoami (Courtesy of Michiel van
+    Leening)
+  * Fix missing FOUND declaration (pulled from dotdeb)
+  * Add Breaks for all known broken packages not working with PHP 5.4
+    (Closes: #666411)
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 06 Apr 2012 12:46:14 +0200
+
+php5 (5.4.0-3) unstable; urgency=high
+
+  [ Thijs Kinkhorst ]
+  * Correct version number; 5.4.0~rc7-3 never existed
+  * Add placeholder build-arch, build-indep targets
+  * Each module needs to depend on ucf, as it's used in postinst
+  * Newer version of roundcube available that isn't broken anymore
+  * Checked for policy 3.9.3
 
   [ Ondřej Surý ]
-  * Fix use_embedded_timezonedb.patch in custom builds (Courtesy of
-    Dominic Scheirlinck) (Closes: #652599)
-  * Fix typo in firebird2.1-dev build dependency
-  * Update gbp.conf for 5.3.x branch
-  * Imported Upstream version 5.3.10
-    + CVE-2012-0830: Fixed arbitrary remote code execution vulnerability
-      reported by Stefan Esser.
+  * Remove Pre-Depends on dpkg-maintscript-helper
+  * Remove obsolete configure options
+  * Add support for *.extra.{post,pre}{inst,rm} files
+  * Add support for MultiArch libgd2-xpm-dev
+  * Add support for MultiArch libmysqlclient-dev
+  * Add Lior to maintainers
+  * setup-mysql.sh changed to:
+    + never run as root (fix needed for MySQL 5.5 in pbuilder)
+    + drop and create database test which may or may not exist
+  * Restart apache2 instead of reloading on first install
+    (Closes: #589386)
 
- -- Ondřej Surý <ondrej@debian.org>  Fri, 03 Feb 2012 09:38:06 +0100
+  [ Julien Cristau ]
+  * Fix postinst scripts to not use 'local' outside functions (Closes:
+    #664853, #664849)
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 14 Mar 2012 08:49:32 +0100
+
+php5 (5.4.0-2) unstable; urgency=low
+
+  * Build depend on libpng-dev | libpng12-dev (Closes: #662466)
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 05 Mar 2012 13:26:06 +0100
+
+php5 (5.4.0-1) unstable; urgency=low
+
+  * PHP 5.4 has landed in unstable
+  * Imported Upstream version 5.4.0
+  * Use $(filter pattern...,text) instead of $(findstring find,in) in
+    debian/rules to match against space separated list of words and not
+    substrings (Closes: #660647)
+
+ -- Ondřej Surý <ondrej@debian.org>  Sat, 03 Mar 2012 16:03:12 +0100
+
+php5 (5.4.0~rc8-2) experimental; urgency=low
+
+  * Use $(filter pattern...,text) instead of $(findstring find,in) in
+    debian/rules to match against space separated list of words and not
+    just substrings (i386 != hurd-i386) (Closes: #660647)
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 20 Feb 2012 17:26:54 +0100
+
+php5 (5.4.0~rc8-1) experimental; urgency=low
+
+  * Imported Upstream version 5.4.0~rc8
+  * Improve maxlifetime script to scan for more SAPIs and scan all *.ini
+    in conf.d directory
+  * Move php5-mysqlnd to Priority: extra to make debcheck happy
+  * Check for dpkg-maintscript-helper existence in php5-fpm maintainer
+    scripts
+  * Add Pre-Depends: dpkg (>= 1.15.7.2~) | dpkg-maintscript-helper to
+    allow single upgrade path (dpkg-maintscript-helper package will be
+    provided for Ubuntu Lucid PPA)
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 17 Feb 2012 21:37:05 +0100
+
+php5 (5.4.0~rc7-2) experimental; urgency=low
+
+  * Use corrected module PHPAPI (20100525) and not (220100525)
+  * Use $ZEND_MODULE_API_NO for $DEBIAN_PHP_API. Check for PHPAPI
+    changes, so we don't become binary incompatible without knowing it.
+  * Update debian/README.Debian.security:
+    + register_globals was removed from PHP 5.4
+    + Remove safe_mode (removed upstream) and update and reformat text
+      slightly
+    + Reviewed by english l10n team (thanks a lot)
+  * php5-fpm now listen on socket instead of localhost by default
+    (Closes: #650204)
+  * Add NEWS about change of default location of php5-fpm socket
+  * Stop php5-fpm on runlevels 0 1 6 (Closes: #650203)
+  * Add -ignore_readdir_race to find call in session cleanup (#634864)
+  * Don't prefix extension list automatically, it's done by subsvars now
+    (Closes: #633491)
+  * Depends on non-forking fuser in psmisc (Closes: #633100)
+  * php5-common.README.Debian additions and cleanup:
+    + Add a paragraph about PHP_INI_SCAN_DIR (Closes: #659123)
+    + Reformat README.Debian to common formatting
+    + Mention php5-fpm where appropriate
+    + Use 'PHP 5' and 'Apache HTTP Server' instead of php5 and apache2
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 09 Feb 2012 00:03:26 +0100
+
+php5 (5.4.0~rc7-1) experimental; urgency=low
+
+  [ Thijs Kinkhorst ]
+  * Textual improvements to README.Debian.security, NEWS
+    (closes: #632675,#643015,#658208).
+
+  [ Ondřej Surý ]
+  * Imported Upstream version 5.4.0~rc7
+    + CVE-2012-0830: Fix PHP remote vulnerability (code injection) in the
+      implementation of the max_input_vars configuration variable
+    + CVE-2011-3389: Fix possible attack in SSL sockets with SSL 3.0/TLS 1.0.
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 03 Feb 2012 11:03:39 +0100
+
+php5 (5.4.0~rc6-3) experimental; urgency=low
+
+  * ucfize php5-module.* and store priority in module .ini file
+  * Store dsonames in maintainer scripts to make postrm work
+  * Make php5enmod idempotent
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 02 Feb 2012 12:25:54 +0100
+
+php5 (5.4.0~rc6-2) experimental; urgency=low
+
+  * Merge all changes from Debian unstable branch (up to 5.3.9-6)
+  * Fix -Wformat-security error in mysqlnd
+  * Add php5{en,dis}mod to enable/disable modules from maintainer
+    scripts (Closes: #447826, #582320, #627145)
+    (Initial work courtesy of Clint Byrum)
+  * Modify comments in php.inis to match compiled default session
+  * Adjust new 5.3 patches for 5.4 branch
+  * Ensure pdo.so is loaded before all other modules
+  * Add trigger to restart php5-fpm when module is installed/removed
+  * Remove --with-ttf and --with-t1lib (Closes: #658248, #638755)
+  * Add debian/NEWS item about missing t1lib functions
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 01 Feb 2012 18:27:30 +0100
+
+php5 (5.4.0~rc6-1) experimental; urgency=low
+
+  * Imported Upstream version 5.4.0~rc6
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 20 Jan 2012 15:30:48 +0100
+
+php5 (5.4.0~rc5-1) experimental; urgency=low
+
+  * Imported Upstream version 5.4.0~rc5
+  * Update patches for new release
+  * Disable suhosin patch
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 19 Jan 2012 19:23:36 +0100
+
+php5 (5.4.0~beta2-1) experimental; urgency=low
+
+  * Remove obsolete sqlite(2) module from php5-sqlite
+  * Use correct signals in php5-fpm init script (Closes: #645934)
+  * Update gbp.conf for experimental branch
+  * Imported Upstream version 5.4.0~beta2
+  * Refresh patches for the 5.4.0beta2 release
+  * Remove php.ini-paranoid, it's almost useless now
+  * Remove safe_mode setting from suhosin, it has been removed upstream
+  * Remove the php_stream stuff to allow compiling with system-wide
+    libgd
+  * php5-common.docs: Don't install non-existant TODO file
+
+ -- Ondřej Surý <ondrej@debian.org>  Sat, 22 Oct 2011 18:39:33 +0200
 
 php5 (5.3.9-6) unstable; urgency=low
 
@@ -159,93 +321,12 @@ php5 (5.3.9-1) unstable; urgency=low
 
  -- Ondřej Surý <ondrej@debian.org>  Wed, 11 Jan 2012 16:33:20 +0100
 
-php5 (5.3.8.0-1ubuntu3) precise; urgency=low
-
-  * SECURITY UPDATE: Denial of service and possible information disclosure
-    via exif integer overflow
-    - debian/patches/CVE-2011-4566.patch: fix count checks in
-      ext/exif/exif.c.
-    - CVE-2011-4566
-
- -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 12 Dec 2011 15:14:28 -0500
-
-php5 (5.3.8.0-1ubuntu2) precise; urgency=low
-
-  * d/control: build-depend on mysql 5.5 instead of 5.1 for running tests.
-  * d/setup-mysql.sh: modify to work with mysql 5.5 differences
-
- -- Clint Byrum <clint@ubuntu.com>  Thu, 24 Nov 2011 10:28:38 -0800
-
-php5 (5.3.8.0-1ubuntu1) precise; urgency=low
-
-  * Resynchronise with Debian.  Remaining changes:
-    - debian/rules: export DEB_HOST_MULTIARCH properly.
-    - Only build php5-sqlite for sqlite3, dropping the obsolete sqlite2.
-    - Add build-dependency on lemon, which we now need.
-    - Dropped firebird2.1-dev, libc-client-dev, libmcrypt-dev as it is in universe.
-    - Dropped libcurl-dev not in the archive.
-    - debian/control: replace build-depends on mysql-server with
-      mysql-server-core-5.1 and mysql-client-5.1 to avoid upstart and
-      mysql-server-5.1 postinst confusion with starting up multiple
-      mysqlds listening on the same port.
-    - Dropped php5-imap, php5-interbase, php5-mcrypt since we have versions
-      already in universe.
-    - Suggest php5-suhosin rather than recommends.
-    - Dropped libonig-dev and libqgdbm since its in universe. (libonig MIR
-      has been declined due to an inactive upstream. So this is probably
-      a permanent change).
-    - modulelist: Drop imap, interbase, sybase, and mcrypt.
-    - debian/rules:
-      * Dropped building of mcrypt, imap, and interbase.
-      * Install apport hook for php5.
-      * stop mysql instance on clean just in case we failed in tests
-    - debian/control: Recommend php5-dev for php-pear.
-    - debian/rules: --enable-pcntl for cgi as well.
-  * debian/patches/temporary-path-fixes-for-multiarch.patch: Handle
-    multiarch libmysqlclient as well.
-
- -- Colin Watson <cjwatson@ubuntu.com>  Wed, 23 Nov 2011 12:58:51 +0000
-
 php5 (5.3.8.0-1) unstable; urgency=low
 
   * Re-re-imported upstream version 5.3.8, as a new sourceful update,
     in order to prevent the package from remaining as a native package.
 
  -- Sean Finney <seanius@debian.org>  Thu, 27 Oct 2011 17:17:02 +0200
-
-php5 (5.3.8-2ubuntu2) precise; urgency=low
-
-  * Rebuild for libicu48.
-
- -- Colin Watson <cjwatson@ubuntu.com>  Wed, 23 Nov 2011 10:54:32 +0000
-
-php5 (5.3.8-2ubuntu1) precise; urgency=low
-
-  * Merge with Debian; remaining changes:
-    - debian/rules: export DEB_HOST_MULTIARCH properly.
-    - Only build php5-sqlite for sqlite3, dropping the obsolete sqlite2.
-    - Add build-dependency on lemon, which we now need.
-    - Dropped firebird2.1-dev, libc-client-dev, libmcrypt-dev as it is in universe.
-    - Dropped libcurl-dev not in the archive.
-    - debian/control: replace build-depends on mysql-server with
-      mysql-server-core-5.1 and mysql-client-5.1 to avoid upstart and
-      mysql-server-5.1 postinst confusion with starting up multiple
-      mysqlds listening on the same port.
-    - Dropped php5-imap, php5-interbase, php5-mcrypt since we have versions
-      already in universe.
-    - Suggest php5-suhosin rather than recommends.
-    - Dropped libonig-dev and libqgdbm since its in universe. (libonig MIR
-      has been declined due to an inactive upstream. So this is probably
-      a permanent change).
-    - modulelist: Drop imap, interbase, sybase, and mcrypt.
-    - debian/rules:
-      * Dropped building of mcrypt, imap, and interbase.
-      * Install apport hook for php5.
-      * stop mysql instance on clean just in case we failed in tests
-    - debian/control: Recommend php5-dev for php-pear.
-    - debian/rules: --enable-pcntl for cgi as well.
-
- -- Matthias Klose <doko@ubuntu.com>  Tue, 18 Oct 2011 15:39:03 +0200
 
 php5 (5.3.8-2) unstable; urgency=low
 
@@ -274,65 +355,6 @@ php5 (5.3.7-1) unstable; urgency=low
   * Remove PEAR patching with CVE-2011-1144.patch which was merged upstream
 
  -- Ondřej Surý <ondrej@debian.org>  Fri, 19 Aug 2011 14:18:03 +0200
-
-php5 (5.3.6-13ubuntu3) oneiric; urgency=low
-
-  * debian/rules: export DEB_HOST_MULTIARCH properly, so that I don't spend
-    an hour scratching my head at './debian/rules configure' not working
-    right.
-  * Only build php5-sqlite for sqlite3, dropping the obsolete sqlite2.
-  * Add build-dependency on lemon, which we now need.
-
- -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 24 Aug 2011 21:40:27 +0000
-
-php5 (5.3.6-13ubuntu2) oneiric; urgency=low
-
-  * debian/rules: build with --with-openssl instead of --with-openssl=/usr,
-    to autodetect libraries in multiarch directories.
-  * debian/patches/temporary-path-fixes-for-multiarch.patch: add ldap
-    multiarch checks.  LP: #826601.
-
- -- Steve Langasek <steve.langasek@ubuntu.com>  Tue, 16 Aug 2011 06:14:55 +0000
-
-php5 (5.3.6-13ubuntu1) oneiric; urgency=low
-
-  * Merge from debian unstable.  Remaining changes:
-    * Dropped firebird2.1-dev, libc-client-dev, libmcrypt-dev as it is in universe.
-    * Dropped libcurl-dev not in the archive.
-    * debian/control: replace build-depends on mysql-server with
-      mysql-server-core-5.1 and mysql-client-5.1 to avoid upstart and
-      mysql-server-5.1 postinst confusion with starting up multiple
-      mysqlds listening on the same port.
-    * Dropped php5-imap, php5-interbase, php5-mcrypt since we have versions
-      already in universe.
-    * Suggest php5-suhosin rather than recommends.
-    * Dropped libonig-dev and libqgdbm since its in universe. (libonig MIR
-      has been declined due to an inactive upstream. So this is probably
-      a permanent change).
-    * modulelist: Drop imap, interbase, sybase, and mcrypt.
-    * debian/rules:
-      * Dropped building of mcrypt, imap, and interbase.
-      * Install apport hook for php5.
-      * stop mysql instance on clean just in case we failed in tests
-    * debian/control: Recommend php5-dev for php-pear.
-    * debian/rules: --enable-pcntl for cgi as well.
-    * debian/patches/temporary-path-fixes-for-multiarch.patch: as a stopgap
-      for natty, patch the various config.m4 files for modules whose
-      libraries have moved to the multiarch dir; we can't use --with-libdir
-      yet because that requires all the build-deps to have moved.  Thanks to
-      Jonathan Marsden for preparing this patch.
-    * debian/patches/fpm-config.patch: Update php-fpm.conf(pool.d/con)
-      to do initial chdir to / as suggest by Olaf van van der Spek
-      to detect early problems if php5-fpm needs a write access to
-      initial chdir.
-    * SECURITY UPDATE: use-after-free vulnerability
-      - debian/patches/php5-CVE-2011-1148.patch: improve reference
-        counting
-      - CVE-2011-1148
-    * debian/rules: set DEB_HOST_MULTIARCH to enable 'debian/rules' for
-      building.
-
- -- Chuck Short <zulcss@ubuntu.com>  Mon, 25 Jul 2011 19:14:12 +0100
 
 php5 (5.3.6-13) unstable; urgency=low
 
@@ -363,59 +385,6 @@ php5 (5.3.6-12) unstable; urgency=low
     [CVE-2011-2202]
 
  -- Ondřej Surý <ondrej@debian.org>  Wed, 15 Jun 2011 11:06:40 +0200
-
-php5 (5.3.6-11ubuntu1) oneiric; urgency=low
-
-  * Merge from debian unstable.  Remaining changes:
-    * Dropped firebird2.1-dev, libc-client-dev, libmcrypt-dev as it is in universe.
-    * Dropped libcurl-dev not in the archive.
-    * debian/control: replace build-depends on mysql-server with
-      mysql-server-core-5.1 and mysql-client-5.1 to avoid upstart and
-      mysql-server-5.1 postinst confusion with starting up multiple
-      mysqlds listening on the same port.
-    * Dropped php5-imap, php5-interbase, php5-mcrypt since we have versions 
-      already in universe.
-    * Suggest php5-suhosin rather than recommends.
-    * Dropped libonig-dev and libqgdbm since its in universe. (libonig MIR
-      has been declined due to an inactive upstream. So this is probably
-      a permanent change).
-    * modulelist: Drop imap, interbase, sybase, and mcrypt.
-    * debian/rules:
-      * Dropped building of mcrypt, imap, and interbase.
-      * Install apport hook for php5.
-      * stop mysql instance on clean just in case we failed in tests
-    * debian/control: Recommend php5-dev for php-pear.
-    * debian/rules: --enable-pcntl for cgi as well.
-    * debian/patches/temporary-path-fixes-for-multiarch.patch: as a stopgap
-      for natty, patch the various config.m4 files for modules whose
-      libraries have moved to the multiarch dir; we can't use --with-libdir
-      yet because that requires all the build-deps to have moved.  Thanks to
-      Jonathan Marsden for preparing this patch.
-    * debian/patches/fpm-config.patch: Update php-fpm.conf(pool.d/con)
-      to do initial chdir to / as suggest by Olaf van van der Spek 
-      to detect early problems if php5-fpm needs a write access to 
-      initial chdir.
-    * SECURITY UPDATE: use-after-free vulnerability
-      - debian/patches/php5-CVE-2011-1148.patch: improve reference
-        counting
-      - CVE-2011-1148
-    * debian/rules: set DEB_HOST_MULTIARCH to enable 'debian/rules' for
-      building.
-  * Dropped Changes:
-    * Dropped libmysqlclient15-dev, build against mysql 5.1. -- Dropped in debian.
-    * Dropped locales-all. -- Now has alternative language-pack-de for use in tests.
-    * debian/php5-fpm.init: backport changes from Debian package to run
-      configuration check. Removes check for /var/www which broke stand-
-      alone installation of php5-fpm. -- superseded upstream
-    * All CVE's not mentioned above (applied upstream or in Debian)
-    * debian/patches/configure-as-needed.patch. Work around suspicious
-      configure macros to fix a build failure with --as-needed
-    * debian/patches/backport-upstream-lp592442.patch: Backport upstream fix 
-      for ssl fopen issues. -- applied in Debian
-    * debian/patches/lp564920-fix-big-files.patch: Fix downloading of large
-      files -- applied in Debian
-
- -- Clint Byrum <clint@ubuntu.com>  Wed, 25 May 2011 10:34:40 -0700
 
 php5 (5.3.6-11) unstable; urgency=low
 
@@ -543,168 +512,6 @@ php5 (5.3.6-1) unstable; urgency=low
 
  -- Ondřej Surý <ondrej@debian.org>  Fri, 18 Mar 2011 15:51:50 +0100
 
-php5 (5.3.5-1ubuntu7.2) natty-security; urgency=low
-
-  * debian/patches/php5-pear-CVE-2011-1144-regression.patch: fix
-    mkdir parenthesis issue and PEAR::raiseErro typo (LP: #774452)
-
- -- Steve Beattie <sbeattie@ubuntu.com>  Sat, 30 Apr 2011 16:00:39 -0700
-
-php5 (5.3.5-1ubuntu7.1) natty-security; urgency=low
-
-  * SECURITY UPDATE: arbitrary files removal via cronjob
-    - debian/php5-common.php5.cron.d: take greater care when removing
-      session files.
-    - http://git.debian.org/?p=pkg-php%2Fphp.git;a=commitdiff_plain;h=d09fd04ed7bfcf7f008360c6a42025108925df09
-    - CVE-2011-0441
-  * SECURITY UPDATE: symlink tmp races in pear install
-    - debian/patches/php5-pear-CVE-2011-1072.patch: improved
-      tempfile handling.
-    - debian/rules: apply patch manually after unpacking PEAR phar
-      archive.
-    - CVE-2011-1072
-  * SECURITY UPDATE: more symlink races in pear install
-    - debian/patches/php5-pear-CVE-2011-1144.patch: add TOCTOU save
-      file handler.
-    - debian/rules: apply patch manually after unpacking PEAR phar
-      archive.
-    - CVE-2011-1144
-  * SECURITY UPDATE: denial of service through application crash with
-    invalid images
-    - debian/patches/php5-CVE-2010-4698.patch: verify anti-aliasing
-      steps are either 4 or 16.
-    - CVE-2010-4698
-  * SECURITY UPDATE: denial of service through application crash
-    - debian/patches/php5-CVE-2011-0420.patch: improve grapheme_extract()
-      argument validation.
-    - CVE-2011-0420
-  * SECURITY UPDATE: denial of service through application crash
-    - debian/patches/php5-CVE-2011-0421.patch: fail operation gracefully
-      when handling zero sized zipfile with the FL_UNCHANGED argument
-    - CVE-2011-0421
-  * SECURITY UPDATE: denial of service through application crash when
-    handling images with invalid exif tags
-    - debian/patches/php5-CVE-2011-0708.patch: stricter exif checking
-    - CVE-2011-0708
-  * SECURITY UPDATE: denial of service and possible data disclosure
-    through integer overflow
-    - debian/patches/php5-CVE-2011-1092.patch: better boundary
-      condition checks in shmop_read()
-    - CVE-2011-1092
-  * SECURITY UPDATE: use-after-free vulnerability
-    - debian/patches/php5-CVE-2011-1148.patch: improve reference
-      counting
-    - CVE-2011-1148
-  * SECURITY UPDATE: format string vulnerability
-    - debian/patches/php5-CVE-2011-1153.patch: correctly quote format
-      strings
-    - CVE-2011-1153
-  * SECURITY UPDATE: denial of service through buffer overflow crash
-    (code execution mitigated by compilation with Fortify Source)
-    - debian/patches/php5-CVE-2011-1464.patch: limit amount of precision
-      to ensure fitting within MAX_BUF_SIZE
-    - CVE-2011-1464
-  * SECURITY UPDATE: denial of service through application crash
-    - debian/patches/php5-CVE-2011-1467.patch: check for invalid
-      attribute symbols in NumberFormatter::setSymbol()
-    - CVE-2011-1467
-  * SECURITY UPDATE: denial of service through memory leak
-    - debian/patches/php5-CVE-2011-1468.patch: fix memory leak of
-      openssl contexts
-    - CVE-2011-1468
-  * SECURITY UPDATE: denial of service through application crash
-    when using HTTP proxy with the FTP wrapper
-    - debian/patches/php5-CVE-2011-1469.patch: improve pointer handling
-    - CVE-2011-1469
-  * SECURITY UPDATE: denial of service through application crash when
-    handling ziparchive streams
-    - debian/patches/php5-CVE-2011-1470.patch: set necessary elements of
-      the meta data structure
-    - CVE-2011-1470
-  * SECURITY UPDATE: denial of service through application crash when
-    handling malformed zip files
-    - debian/patches/php5-CVE-2011-1471.patch: correct integer
-      signedness error when handling zip_fread() return value.
-    - CVE-2011-1471
-  * debian/control: replace build-depends on mysql-server with
-    mysql-server-core-5.1 and mysql-client-5.1 to avoid upstart and
-    mysql-server-5.1 postinst confusion with starting up multiple
-    mysqlds listening on the same port.
-
- -- Steve Beattie <sbeattie@ubuntu.com>  Tue, 26 Apr 2011 08:34:26 -0700
-
-php5 (5.3.5-1ubuntu7) natty; urgency=low
-
-  * debian/php5-fpm.init: backport changes from Debian package to run
-    configuration check. Removes check for /var/www which broke stand-
-    alone installation of php5-fpm. (LP: #753924)
-  * debian/rules: set DEB_HOST_MULTIARCH to enable 'debian/rules' for
-    building.
-
- -- Clint Byrum <clint@ubuntu.com>  Tue, 12 Apr 2011 14:21:14 -0700
-
-php5 (5.3.5-1ubuntu6) natty; urgency=low
-
-  * debian/patches/fpm-config.patch: Update php-fpm.conf(pool.d/con)
-    to do initial chdir to / as suggest by Olaf van van der Spek 
-    to detect early problems if php5-fpm needs a write access to 
-    initial chdir.
-  * debian/patches/backport-upstream-lp592442.patch: Backport upstream fix 
-    for ssl fopen issues. (LP: #592442)
-
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 01 Apr 2011 09:29:49 -0400
-
-php5 (5.3.5-1ubuntu5) natty; urgency=low
-
-  * debian/patches/temporary-path-fixes-for-multiarch.patch: as a stopgap
-    for natty, patch the various config.m4 files for modules whose
-    libraries have moved to the multiarch dir; we can't use --with-libdir
-    yet because that requires all the build-deps to have moved.  Thanks to
-    Jonathan Marsden for preparing this patch.  LP: #739977.
-  * debian/patches/ubuntu/ubuntu-php-version.patch: drop.  This is an
-    autogenerated file.
-
- -- Steve Langasek <steve.langasek@ubuntu.com>  Thu, 24 Mar 2011 22:34:00 +0000
-
-php5 (5.3.5-1ubuntu4) natty; urgency=low
-
-  * debian/control: Recommend php5-dev for php-pear. (LP: #634359)
-  * debian/rules: --enable-pcntl for cgi as well. (LP: #658346) 
-
- -- Chuck Short <zulcss@ubuntu.com>  Mon, 14 Mar 2011 10:34:00 -0400
-
-php5 (5.3.5-1ubuntu3) natty; urgency=low
-
-  * debian/php5-fpm.init: Fix logic from previous commit. 
-
- -- Chuck Short <zulcss@ubuntu.com>  Mon, 14 Mar 2011 08:18:17 -0400
-
-php5 (5.3.5-1ubuntu2) natty; urgency=low
-
-  * debian/php5-fpm.init: Dont start fpm if /var/www doesnt exist.
-    (LP: #731572) 
-
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 11 Mar 2011 16:29:24 -0500
-
-php5 (5.3.5-1ubuntu1) natty; urgency=low
-
-  * Merge from debian/unstable. Remaining changes:
-   - debian/control:
-      * Dropped firebird2.1-dev, libc-client-dev, libmcrypt-dev as it is in universe.
-      * Dropped libmysqlclient15-dev, build against mysql 5.1.
-      * Dropped libcurl-dev not in the archive.
-      * Suggest php5-suhosin rather than recommends.
-      * Dropped php5-imap, php5-interbase, php5-mcrypt since we have versions 
-        already in universe.
-      * Dropped libonig-dev and libqgdbm since its in universe. (will be re-added in lucid+1)
-    - modulelist: Drop imap, interbase, sybase, and mcrypt.
-    - debian/rules:
-      * Dropped building of mcrypt, imap, and interbase.
-      * Install apport hook for php5.
-      * stop mysql instance on clean just in case we failed in tests
-
- -- Chuck Short <zulcss@ubuntu.com>  Tue, 22 Feb 2011 09:46:37 -0500
-
 php5 (5.3.5-1) unstable; urgency=low
 
   * Imported Upstream version 5.3.5
@@ -714,32 +521,6 @@ php5 (5.3.5-1) unstable; urgency=low
   * Adapted (and removed upstream-applied) patches to php 5.3.5
 
  -- Ondřej Surý <ondrej@debian.org>  Wed, 16 Feb 2011 15:17:32 +0100
-
-php5 (5.3.3-7ubuntu1) natty; urgency=low
-
-  * Merge from debian unstable.  Remaining changes:
-    - debian/control:
-      * Dropped firebird2.1-dev, libc-client-dev, libmcrypt-dev as it is in universe.
-      * Dropped libmysqlclient15-dev, build against mysql 5.1.
-      * Dropped libcurl-dev not in the archive.
-      * Suggest php5-suhosin rather than recommends.
-      * Dropped php5-imap, php5-interbase, php5-mcrypt since we have versions 
-        already in universe.
-      * Dropped libonig-dev and libqgdbm since its in universe. (will be re-added in lucid+1)
-      * Dropped locales-all.
-    - modulelist: Drop imap, interbase, sybase, and mcrypt.
-    - debian/rules:
-      * Dropped building of mcrypt, imap, and interbase.
-      * Install apport hook for php5.
-      * stop mysql instance on clean just in case we failed in tests
-    - Dropped debian/patches/fix-upstream-bug53632.patch, used debian's instead.
-    - Dropped debian/patches/mssql-fix-segfault.patch, use debian's instead.
-    - debian/patches/configure-as-needed.patch. Work around suspicious
-      configure macros to fix a build failure with --as-needed
-    - debian/patches/php52389-pgsql-segfault.patch: removing, causes error
-      handling to fail.
-
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 07 Jan 2011 22:44:56 +0000
 
 php5 (5.3.3-7) unstable; urgency=low
 
@@ -833,119 +614,6 @@ php5 (5.3.3-2) unstable; urgency=low
 
  -- Ondřej Surý <ondrej@debian.org>  Thu, 21 Oct 2010 16:57:53 +0200
 
-php5 (5.3.3-1ubuntu12) natty; urgency=low
-
-  * debian/patches/fix-upstream-bug53632.patch: Fix infinite loop bug (php bug #53632)
-    (LP: #697181)
-
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 07 Jan 2011 12:57:59 -0500
-
-php5 (5.3.3-1ubuntu11) natty; urgency=low
-
-  * Add debian/patches/mssql-fix-segfault.patch: Fixes segfault on missing
-    parameters for mssql. Upstream php bug #52843 and LP: #611316.
-
- -- Clint Byrum <clint@ubuntu.com>  Fri, 03 Dec 2010 23:45:19 -0800
-
-php5 (5.3.3-1ubuntu10) natty; urgency=low
-
-  * debian/patches/configure-as-needed.patch. Work around suspicious
-    configure macros to fix a build failure with --as-needed (Clint Byrum).
-    Addresses #676672.
-
- -- Matthias Klose <doko@ubuntu.com>  Wed, 24 Nov 2010 10:44:36 +0100
-
-php5 (5.3.3-1ubuntu9.1) maverick-proposed; urgency=low
-
-  * debian/patches/php52389-pgsql-segfault.patch: removing, 
-    causes error handling to fail (LP: #660227)
-
- -- Clint Byrum <clint@ubuntu.com>  Thu, 14 Oct 2010 06:46:02 -0700
-
-php5 (5.3.3-1ubuntu9) maverick; urgency=low
-
-  * SECURITY UPDATE: arbitrary memory disclosure and possible code
-    execution via phar extension
-    - debian/patches/CVE-2010-2950.patch: use correct format string in
-      ext/phar/stream.c.
-    - CVE-2010-2094
-    - CVE-2010-2950
-
- -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 20 Sep 2010 14:56:33 -0400
-
-php5 (5.3.3-1ubuntu8) maverick; urgency=low
-
-  * Build-depend on netcat-openbsd | netcat, instead of just netcat (only
-    in universe).
-
- -- Matthias Klose <doko@ubuntu.com>  Fri, 17 Sep 2010 14:33:13 +0200
-
-php5 (5.3.3-1ubuntu7) maverick; urgency=low
-
-  * debian/setup-mysql.sh: Copy mysqld to local dir during build to avoid 
-    apparmor restrictions (LP: #638401)
-  * debian/rules: stop mysql instance on clean just in case we failed in tests
-
- -- Clint Byrum <clint@ubuntu.com>  Wed, 15 Sep 2010 10:48:32 -0700
-
-php5 (5.3.3-1ubuntu6) maverick; urgency=low
-
-  * Undo sybase debugging libraries split: keeping a smaller delta with Debian
-    is more important than demoting sybase to universe. 
-
- -- Mathias Gug <mathiaz@ubuntu.com>  Wed, 25 Aug 2010 14:04:57 -0400
-
-php5 (5.3.3-1ubuntu5) maverick; urgency=low
-
-  * Drop sybase libraries to universe:
-    Move debugging libraries to php5-sybase-dbg:
-    - debian/control: 
-      + create php5-sybase-dbg package.
-      + drop php5-sybase as php5-dbg dependency.
-    - debian/rules: move sybase debugging libraries to php5-sybase-dbg.
-
- -- Mathias Gug <mathiaz@ubuntu.com>  Fri, 20 Aug 2010 19:13:55 -0400
-
-php5 (5.3.3-1ubuntu4) maverick; urgency=low
-
-  * debian/php5-module.ini: # replaced with ; (LP: #591286)
-  * debian/patches/php52389-pgsql-segfault.patch (LP: #607646)
-    - Applying patch for upstream bug that causes segfaults in pgsql
-
- -- Clint Byrum <clint@ubuntu.com>  Fri, 13 Aug 2010 00:07:15 -0700
-
-php5 (5.3.3-1ubuntu3) maverick; urgency=low
-
-  * debian/patches/lp564920-fix-big-files.patch: Fix downloading of large
-    files (LP: #564920)
-
- -- Clint Byrum <clint@ubuntu.com>  Fri, 06 Aug 2010 13:10:17 -0700
-
-php5 (5.3.3-1ubuntu2) maverick; urgency=low
-
-  * debian/control: Use netcat rather than netcat-traditional. 
-
- -- Chuck Short <zulcss@ubuntu.com>  Thu, 05 Aug 2010 20:00:34 -0500
-
-php5 (5.3.3-1ubuntu1) maverick; urgency=low
-
-  * Merge from debian experimental:
-    - debian/control:
-      * Dropped firebird2.1-dev, libc-client-dev, libmcrypt-dev as it is in universe.
-      * Dropped libmysqlclient15-dev, build against mysql 5.1.
-      * Dropped libcurl-dev not in the archive.
-      * Suggest php5-suhosin rather than recommends.
-      * Dropped php5-imap, php5-interbase, php5-mcrypt since we have versions already in
-        universe.
-      * Dropped libonig-dev and libqgdbm since its in universe. (will be re-added in lucid+1)
-      * Dropped locales-all.
-    - modulelist: Drop imap, interbase, and mcrypt.
-    - debian/rules:
-      * Dropped building of mcrypt, imap, and interbase.
-      * Install apport hook for php5.
-
- -- Chuck Short <zulcss@ubuntu.com>  Sun, 01 Aug 2010 14:28:03 -0500
-
 php5 (5.3.3-1) experimental; urgency=low
 
   * Upload PHP 5.3.3 to experimental for further testing
@@ -998,61 +666,6 @@ php5 (5.3.2-2) unstable; urgency=low
     - thanks to Chris Butler <chrisb@debian.org>
 
  -- Raphael Geissert <geissert@debian.org>  Sun, 18 Jul 2010 15:35:06 -0500
-
-php5 (5.3.2-1ubuntu5) maverick; urgency=low
-
-  * debian/php5-module.ini: Comment should be "#" not ";". (LP: #573436) 
-  * debian/patches/cherrypick-upstream-51740.diff: Fix acinclude.ac macro check. (LP: #576910)
-  * debian/patches/cherrypick-upstream-48361.diff: Fix regression with getPathInfo() 
-    doesn't return parent info (LP: #576910)
-  * debian/patches/session_save_path.patch: ave PHP sessions to
-    /var/lib/php rather than /tmp. (LP: #573222)
-
- -- Chuck Short <zulcss@ubuntu.com>  Tue, 25 May 2010 10:17:00 -0400
-
-php5 (5.3.2-1ubuntu4.1) lucid-proposed; urgency=low
-
-  * debian/patches/fix-mysql-badmem.patch: Fix mysql crash when using php5-cgi. (LP: #567043)
-
- -- Chuck Short <zulcss@ubuntu.com>  Mon, 03 May 2010 11:23:43 -0400
-
-php5 (5.3.2-1ubuntu4) lucid; urgency=low
-
-  * debian/control, debian/rules: Re-enable libedit-dev. (LP: #548823) 
-
- -- Chuck Short <zulcss@ubuntu.com>  Mon, 05 Apr 2010 15:33:21 -0400
-
-php5 (5.3.2-1ubuntu3) lucid; urgency=low
-
-  * debian/control: Fix upgrade of php5-ldap from 5.3.1. (LP: #) 
-
- -- Chuck Short <zulcss@ubuntu.com>  Sun, 28 Mar 2010 15:41:34 -0400
-
-php5 (5.3.2-1ubuntu2) lucid; urgency=low
-
-  * debian/control: Dont build with libmcrypt-dev. 
-
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 26 Mar 2010 14:39:36 -0400
-
-php5 (5.3.2-1ubuntu1) lucid; urgency=low
-
-  * Merge from debian unstable: 
-    - debian/control:
-      * Dropped firebird2.1-dev, libc-client-dev, libmcrypt-dev as it is in universe.
-      * Dropped libmysqlclient15-dev, build against mysql 5.1.
-      * Dropped libcurl-dev not in the archive.
-      * Suggest php5-suhosin rather than recommends.
-      * Dropped php5-imap, php5-interbase, php5-mcrypt since we have versions already in
-        universe.
-      * Dropped libonig-dev and libqgdbm since its in universe. (will be re-added in lucid+1)
-      * Dropped locales-all.
-    - modulelist: Drop imap, interbase, and mcrypt.
-    - debian/rules:
-      * Dropped building of mcrypt, imap, and interbase.
-      * Install apport hook for php5.
-    - Dropped debian/patches/libedit_is_editline.patch.
-
- -- Chuck Short <zulcss@ubuntu.com>  Tue, 16 Mar 2010 09:09:50 -0400
 
 php5 (5.3.2-1) unstable; urgency=high
 
@@ -4319,4 +3932,3 @@ php4 (4.0b3-1) unstable; urgency=low
   * Initial Release.
 
  -- Gergely Madarasz <gorgo@sztaki.hu>  Tue, 16 Nov 1999 19:33:42 +0100
-

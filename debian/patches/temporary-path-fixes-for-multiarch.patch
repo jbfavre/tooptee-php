@@ -9,7 +9,7 @@ Reviewed-by: Steve Langasek <steve.langasek@ubuntu.com>
 
 --- a/ext/dba/config.m4
 +++ b/ext/dba/config.m4
-@@ -204,7 +204,7 @@ AC_DEFUN([PHP_DBA_DB_CHECK],[
+@@ -239,7 +239,7 @@ AC_DEFUN([PHP_DBA_DB_CHECK],[
      AC_MSG_ERROR([DBA: Could not find necessary header file(s).])
    fi
    for LIB in $2; do
@@ -20,7 +20,7 @@ Reviewed-by: Steve Langasek <steve.langasek@ubuntu.com>
          AC_TRY_LINK([
 --- a/ext/gd/config.m4
 +++ b/ext/gd/config.m4
-@@ -128,7 +128,7 @@ AC_DEFUN([PHP_GD_XPM],[
+@@ -159,7 +159,7 @@ AC_DEFUN([PHP_GD_XPM],[
    if test "$PHP_XPM_DIR" != "no"; then
  
      for i in $PHP_XPM_DIR /usr/local /usr/X11R6 /usr; do
@@ -29,6 +29,15 @@ Reviewed-by: Steve Langasek <steve.langasek@ubuntu.com>
      done
  
      if test -z "$GD_XPM_DIR"; then
+@@ -396,7 +396,7 @@ dnl Header path
+ 
+ dnl Library path
+   for i in $PHP_LIBDIR/gd1.3 $PHP_LIBDIR/gd $PHP_LIBDIR gd1.3 gd ""; do
+-    test -f "$PHP_GD/$i/libgd.$SHLIB_SUFFIX_NAME" || test -f "$PHP_GD/$i/libgd.a" && GD_LIB="$PHP_GD/$i"
++    test -f "$PHP_GD/$i/libgd.$SHLIB_SUFFIX_NAME" || test -f "$PHP_GD/$i/$DEB_HOST_MULTIARCH/libgd.$SHLIB_SUFFIX_NAME" || test -f "$PHP_GD/$i/libgd.a" && GD_LIB="$PHP_GD/$i"
+   done
+ 
+   if test -n "$GD_INCLUDE" && test -n "$GD_LIB"; then
 --- a/ext/pcre/config0.m4
 +++ b/ext/pcre/config0.m4
 @@ -21,7 +21,7 @@ PHP_ARG_WITH(pcre-regex,,
@@ -42,7 +51,7 @@ Reviewed-by: Steve Langasek <steve.langasek@ubuntu.com>
      
 --- a/acinclude.m4
 +++ b/acinclude.m4
-@@ -2271,7 +2271,7 @@ AC_DEFUN([PHP_SETUP_KERBEROS],[
+@@ -2282,7 +2282,7 @@ AC_DEFUN([PHP_SETUP_KERBEROS],[
      fi
  
      for i in $PHP_KERBEROS; do
@@ -51,7 +60,7 @@ Reviewed-by: Steve Langasek <steve.langasek@ubuntu.com>
          PHP_KERBEROS_DIR=$i
          break
        fi
-@@ -2348,7 +2348,7 @@ AC_DEFUN([PHP_SETUP_OPENSSL],[
+@@ -2359,7 +2359,7 @@ AC_DEFUN([PHP_SETUP_OPENSSL],[
        if test -r $i/include/openssl/evp.h; then
          OPENSSL_INCDIR=$i/include
        fi
@@ -95,12 +104,29 @@ Reviewed-by: Steve Langasek <steve.langasek@ubuntu.com>
  
 --- a/ext/mysql/config.m4
 +++ b/ext/mysql/config.m4
-@@ -94,7 +94,7 @@ Note that the MySQL client library is no
-     PHP_LIBDIR=lib
+@@ -2,16 +2,6 @@ dnl
+ dnl $Id$
+ dnl
+ 
+-AC_DEFUN([MYSQL_LIB_CHK], [
+-  str="$MYSQL_DIR/$1/lib$MYSQL_LIBNAME.*"
+-  for j in `echo $str`; do
+-    if test -r $j; then
+-      MYSQL_LIB_DIR=$MYSQL_DIR/$1
+-      break 2
+-    fi
+-  done
+-])
+-
+ AC_DEFUN([PHP_MYSQL_SOCKET_SEARCH], [
+   for i in  \
+     /var/run/mysqld/mysqld.sock \
+@@ -93,7 +83,7 @@ Note that the MySQL client library is no
    fi
  
--  for i in $PHP_LIBDIR $PHP_LIBDIR/mysql; do
-+  for i in $PHP_LIBDIR/$DEB_HOST_MULTIARCH $PHP_LIBDIR $PHP_LIBDIR/mysql; do
-     MYSQL_LIB_CHK($i)
+   for i in $PHP_LIBDIR $PHP_LIBDIR/mysql; do
+-    MYSQL_LIB_CHK($i)
++    test -f "$MYSQL_DIR/$i/lib$MYSQL_LIBNAME.$SHLIB_SUFFIX_NAME" || test -f "$MYSQL_DIR/$i/$DEB_HOST_MULTIARCH/lib$MYSQL_LIBNAME.$SHLIB_SUFFIX_NAME" || test -r "$MYSQL_DIR/$i/lib$MYSQL_LIBNAME.a" && MYSQL_LIB_DIR=$MYSQL_DIR/$i
    done
  
+   if test -z "$MYSQL_LIB_DIR"; then
