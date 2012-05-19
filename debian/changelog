@@ -1,8 +1,8 @@
-php5 (5.4.3-1~tooptee1) lucid; urgency=low
+php5 (5.4.3-5~tooptee10+1) lucid; urgency=low
 
   * dotBuntu build for Ubuntu 10.04 Lucid
 
- -- Jean Baptiste Favre <webmaster@jbfavre.org>  Fri, 18 May 2012 10:59:14 +0200
+ -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Fri, 18 May 2012 10:59:14 +0200
 
 php5 (5.4.3-4) unstable; urgency=low
 
