@@ -1,14 +1,14 @@
-php5 (5.3.13-1~tooptee1) precise; urgency=low
+php5 (5.3.13-1~tooptee12+1) precise; urgency=low
 
   * dotBuntu build for Ubuntu 12.04 Precise
 
- -- Jean Baptiste Favre <webmaster@jbfavre.org>  Thu, 17 May 2012 11:58:34 +0200
+ -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Thu, 17 May 2012 11:58:34 +0200
 
-php5 (5.3.10-1~tooptee1) lucid; urgency=low
+php5 (5.3.10-1~tooptee12+1) precise; urgency=low
 
   * dotBuntu build for lucid
 
- -- Jean Baptiste Favre <webmaster@jbfavre.org>  Wed, 16 May 2012 21:43:20 +0200
+ -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Wed, 16 May 2012 21:43:20 +0200
 
 php5 (5.3.10-1ubuntu3) precise; urgency=low
 
