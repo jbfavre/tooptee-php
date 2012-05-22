@@ -40,7 +40,7 @@ ifeq (nocheck,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
   $(warning Disabling checks due DEB_BUILD_OPTIONS)
   RUN_TESTS = no
 endif
-ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH),hurd-i386))
+ifeq ($(DEB_HOST_ARCH),$(findstring hurd-i386,$(DEB_HOST_ARCH)))
   $(warning Disabling checks on hurd-i386)
   RUN_TESTS = no
 endif
