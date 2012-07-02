@@ -1,3 +1,10 @@
+php5 (5.3.14-1~tooptee10+2) lucid; urgency=low
+
+  * dotBuntu build for Ubuntu 10.04 Lucid 
+  * Fix dpkg Pre-depend issue for php5-fpm & php5-sqlite
+
+ -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Mon, 02 Jul 2012 15:12:53 +0200
+
 php5 (5.3.13-1~tooptee10+1) lucid; urgency=low
 
   * dotBuntu build for Ubuntu 10.04 Lucid 
