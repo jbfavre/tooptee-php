@@ -1,25 +1,21 @@
 Source: php5
 Section: php
 Priority: optional
-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
-XSBC-Original-Maintainer: Debian PHP Maintainers <pkg-php-maint@lists.alioth.debian.org>
-Uploaders: Ondřej Surý <ondrej@debian.org>,
-	   Sean Finney <seanius@debian.org>,
-	   Thijs Kinkhorst <thijs@debian.org>
+Maintainer: Jean Baptiste Favre <jbfavre@dotbuntu.org>
 Build-Depends: apache2-prefork-dev,
-	       autoconf (>= 2.63),
-	       automake (>= 1.11) | automake1.11,
+	       autoconf,
+	       automake,
 	       bison,
 	       chrpath,
 	       debhelper (>= 5),
-	       firebird2.1-dev | firebird2.5-dev,
+	       firebird2.1-dev,
 	       flex,
 	       freetds-dev,
 	       hardening-wrapper,
 	       libapr1-dev (>= 1.2.7-8),
 	       libbz2-dev,
 	       libc-client-dev,
-	       libcurl4-openssl-dev,
+	       libcurl4-openssl-dev | libcurl-dev,
 	       libdb-dev,
 	       libenchant-dev,
 	       libevent-dev (>= 1.4.11),
@@ -33,6 +29,7 @@ Build-Depends: apache2-prefork-dev,
 	       libkrb5-dev,
 	       libldap2-dev,
 	       libmcrypt-dev,
+	       libmysqlclient-dev (<= 5.5),
 	       libonig-dev,
 	       libpam0g-dev,
 	       libpcre3-dev (>= 6.6),
@@ -54,18 +51,17 @@ Build-Depends: apache2-prefork-dev,
 	       libxmltok1-dev,
 	       libxml2-dev,
 	       libxslt1-dev (>= 1.0.18),
-	       locales-all | language-pack-de,
-	       lemon,
-	       mysql-server-5.1 | mysql-server-5.5,
+	       language-pack-de,
+	       mysql-server-5.1,
 	       netbase,
-	       netcat-openbsd | netcat,
+	       netcat-traditional,
 	       quilt,
 	       re2c,
 	       unixodbc-dev,
 	       zlib1g-dev,
 	       tzdata
 Build-Conflicts: bind-dev
-Standards-Version: 3.9.2
+Standards-Version: 3.9.1
 Vcs-Git: git://git.debian.org/pkg-php/php.git
 Vcs-Browser: http://git.debian.org/?p=pkg-php/php.git
 Homepage: http://www.php.net/
@@ -82,12 +78,13 @@ Description: server-side, HTML-embedded scripting language (metapackage)
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-common
 Architecture: any
 Depends: ${misc:Depends}, sed (>= 4.1.1-1), ${shlibs:Depends}
-Suggests: php5-suhosin
+Recommends: php5-suhosin
 Provides: php5-json, php5-mhash
 Conflicts: php5-json, php5-mhash
 Description: Common files for packages built from the php5 source
@@ -97,7 +94,8 @@ Description: Common files for packages built from the php5 source
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: libapache2-mod-php5
 Section: httpd
@@ -117,11 +115,11 @@ Description: server-side, HTML-embedded scripting language (Apache 2 module)
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: libapache2-mod-php5filter
 Section: httpd
-Priority: extra
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, mime-support, ${apache2:Depends}, php5-common (= ${binary:Version}), libmagic1, ucf, tzdata
 Conflicts: libapache2-mod-php4, libapache2-mod-php5
@@ -140,7 +138,8 @@ Description: server-side, HTML-embedded scripting language (apache 2 filter modu
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-cgi
 Architecture: any
@@ -158,7 +157,8 @@ Description: server-side, HTML-embedded scripting language (CGI binary)
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-cli
 Architecture: any
@@ -174,10 +174,12 @@ Description: command-line interpreter for the php5 scripting language
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-fpm
 Architecture: any
+Pre-Depends: dpkg (>= 1.15.7.2)
 Depends: ${shlibs:Depends}, ${misc:Depends}, mime-support, php5-common (= ${binary:Version}), libmagic1, ucf, tzdata
 Provides: ${php:Provides}
 Suggests: php-pear
@@ -191,10 +193,10 @@ Description: server-side, HTML-embedded scripting language (FPM-CGI binary)
  PHP5 is an HTML-embedded scripting language. Much of its syntax is borrowed
  from C, Java and Perl with a couple of unique PHP-specific features thrown
  in. The goal of the language is to allow web developers to write dynamically
- generated pages quickly.
+ generated pages quickly. This version of PHP5 was built with the Suhosin patch.
 
 Package: php5-dev
-Depends: ${misc:Depends}, autoconf (>= 2.63), automake (>= 1.11), libssl-dev, libtool (>= 2.2), shtool, php5-common (>= ${binary:Version})
+Depends: ${misc:Depends}, autoconf, automake, libssl-dev, libtool (>= 2.2), shtool, php5-common (>= ${binary:Version})
 Conflicts: ${libtool:Conflicts}
 Architecture: any
 Description: Files for PHP5 module development
@@ -204,10 +206,11 @@ Description: Files for PHP5 module development
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-dbg
-Depends: ${misc:Depends}, php5-common (= ${binary:Version}), libapache2-mod-php5 (= ${binary:Version}) | libapache2-mod-php5filter (= ${binary:Version}) | php5-cgi (= ${binary:Version}) | php5-cli (= ${binary:Version}) | php5-fpm (= ${binary:Version}) | php5-curl (= ${binary:Version}) | php5-enchant (= ${binary:Version}) | php5-gd (= ${binary:Version}) | php5-gmp (= ${binary:Version}) | php5-intl (= ${binary:Version}) | php5-ldap (= ${binary:Version}) | php5-mysql (= ${binary:Version}) | php5-odbc (= ${binary:Version}) | php5-pgsql (= ${binary:Version}) | php5-pspell (= ${binary:Version}) | php5-recode (= ${binary:Version}) | php5-snmp (= ${binary:Version}) | php5-sqlite (= ${binary:Version}) | php5-sybase (= ${binary:Version}) | php5-tidy (= ${binary:Version}) | php5-xmlrpc (= ${binary:Version}) | php5-xsl (= ${binary:Version})
+Depends: ${misc:Depends}, php5-common (= ${binary:Version}), libapache2-mod-php5 (= ${binary:Version}) | libapache2-mod-php5filter (= ${binary:Version}) | php5-cgi (= ${binary:Version}) | php5-cli (= ${binary:Version}) | php5-fpm (= ${binary:Version}) | php5-curl (= ${binary:Version}) | php5-enchant (= ${binary:Version}) | php5-gd (= ${binary:Version}) | php5-gmp (= ${binary:Version}) | php5-imap (= ${binary:Version}) | php5-interbase (= ${binary:Version}) | php5-intl (= ${binary:Version}) | php5-ldap (= ${binary:Version}) | php5-mcrypt (= ${binary:Version}) | php5-mysql (= ${binary:Version}) | php5-odbc (= ${binary:Version}) | php5-pgsql (= ${binary:Version}) | php5-pspell (= ${binary:Version}) | php5-recode (= ${binary:Version}) | php5-snmp (= ${binary:Version}) | php5-sqlite (= ${binary:Version}) | php5-sybase (= ${binary:Version}) | php5-tidy (= ${binary:Version}) | php5-xmlrpc (= ${binary:Version}) | php5-xsl (= ${binary:Version})
 Recommends: gdb
 Section: debug
 Priority: extra
@@ -219,15 +222,14 @@ Description: Debug symbols for PHP5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php-pear
 Architecture: all
 Depends: ${misc:Depends}, php5-common (>= ${source:Version}), php5-cli
-Recommends: gnupg, php5-dev
-Conflicts: php-xml-util
-Replaces: php4-pear (<< 4:4.4.0-0), php-xml-util
-Provides: php-xml-util
+Recommends: gnupg
+Suggests: php5-dev
 Description: PEAR - PHP Extension and Application Repository
  This package contains the base PEAR classes for PHP, as well as the PEAR
  installer.  Many PEAR classes are already packaged for Debian, and can be
@@ -238,7 +240,8 @@ Description: PEAR - PHP Extension and Application Repository
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-curl
 Architecture: any
@@ -249,7 +252,8 @@ Description: CURL module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-enchant
 Architecture: any
@@ -261,7 +265,8 @@ Description: Enchant module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-gd
 Architecture: any
@@ -273,7 +278,8 @@ Description: GD module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-gmp
 Architecture: any
@@ -285,7 +291,8 @@ Description: GMP module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-imap
 Architecture: any
@@ -315,15 +322,14 @@ Package: php5-intl
 Architecture: any
 Depends: ${shlibs:Depends}, ${php:Depends}, ${misc:Depends}, php5-common (= ${binary:Version})
 Conflicts: php5-idn
-Replaces: php5-idn
-Provides: php5-idn
 Description: internationalisation module for php5
  This package provides a module to ease internationalisation of PHP scripts.
  .
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-ldap
 Architecture: any
@@ -334,7 +340,8 @@ Description: LDAP module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-mcrypt
 Architecture: any
@@ -351,8 +358,8 @@ Description: MCrypt module for php5
 Package: php5-mysql
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${php:Depends}, php5-common (= ${binary:Version})
-Conflicts: php5-mysqli, php5-mysqlnd
-Replaces: php5-mysqli, php5-mysqlnd
+Conflicts: php5-mysqli
+Replaces: php5-mysqli
 Description: MySQL module for php5
  This package provides modules for MySQL database connections directly from
  PHP scripts.  It includes the generic "mysql" module which can be used
@@ -363,7 +370,8 @@ Description: MySQL module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-odbc
 Architecture: any
@@ -376,7 +384,8 @@ Description: ODBC module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-pgsql
 Architecture: any
@@ -389,7 +398,8 @@ Description: PostgreSQL module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-pspell
 Architecture: any
@@ -400,7 +410,8 @@ Description: pspell module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-recode
 Architecture: any
@@ -411,7 +422,8 @@ Description: recode module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-snmp
 Architecture: any
@@ -422,12 +434,12 @@ Description: SNMP module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-sqlite
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${php:Depends}, php5-common (= ${binary:Version})
-Breaks: roundcube-sqlite
 Description: SQLite module for php5
  This package provides a module allowing you to use the SQLite self-contained
  database engine from within your PHP scripts, eliminating the need for a full
@@ -437,7 +449,8 @@ Description: SQLite module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-sybase
 Architecture: any
@@ -451,7 +464,8 @@ Description: Sybase / MS SQL Server module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-tidy
 Architecture: any
@@ -467,7 +481,8 @@ Description: tidy module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-xmlrpc
 Architecture: any
@@ -478,7 +493,8 @@ Description: XML-RPC module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.
 
 Package: php5-xsl
 Architecture: any
@@ -489,4 +505,5 @@ Description: XSL module for php5
  PHP5 is a widely-used general-purpose scripting language that is
  especially suited for Web development and can be embedded into HTML.
  The goal of the language is to allow web developers to write
- dynamically generated pages quickly.
+ dynamically generated pages quickly. This version of PHP5 was built
+ with the Suhosin patch.

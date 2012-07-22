@@ -16,56 +16,20 @@ export DH_OPTIONS
 # compatibility to upstream
 PHP5_COMPAT=no
 
-# Set this flag to 'yes' if you want to compile PHP5 with suhosin patch
-PHP5_SUHOSIN=yes
-
 DEB_HOST_GNU_TYPE    ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
-DEB_HOST_MULTIARCH   ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
-export DEB_HOST_MULTIARCH
-
-PHP5_HOST_GNU_TYPE    = $(subst gnulp,gnu,$(DEB_HOST_GNU_TYPE))
-PHP5_BUILD_GNU_TYPE   = $(subst gnulp,gnu,$(DEB_BUILD_GNU_TYPE))
-
-PHP5_HOST_GNU_TYPE    := $(shell echo $(PHP5_HOST_GNU_TYPE) | sed 's/-gnu$$//')
-PHP5_BUILD_GNU_TYPE   := $(shell echo $(PHP5_BUILD_GNU_TYPE) | sed 's/-gnu$$//')
-DEB_HOST_ARCH        ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH   ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 
 PHP5_SOURCE_VERSION   = $(shell dpkg-parsechangelog | grep ^Version | sed "s/Version: //")
 PHP5_UPSTREAM_VERSION = $(shell echo $(PHP5_SOURCE_VERSION) | sed -e "s/-.*//" -e "s/.*://")
 PHP5_DEBIAN_REVISION  = $(shell echo $(PHP5_SOURCE_VERSION) | sed "s/.*-//")
 
-RUN_TESTS = yes
-ifeq (nocheck,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
-  $(warning Disabling checks due DEB_BUILD_OPTIONS)
-  RUN_TESTS = no
+MYSQL_PORT := $(shell for i in $$(seq 1025 3600); do nc -z localhost $$i || { echo $$i; exit; } ; done)
+MYSQL_DATA_DIR ?= $(shell readlink -f mysql_db)
+ifeq (,$(MYSQL_PORT))
+    $(error Could not find available port for mysql server)
 endif
-ifeq ($(DEB_HOST_ARCH),$(findstring hurd-i386,$(DEB_HOST_ARCH)))
-  $(warning Disabling checks on hurd-i386)
-  RUN_TESTS = no
-endif
-
-#ifneq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH),hurd-i386 m68k hppa ppc64))
-#  CONFIGURE_APACHE_ARGS = --with-interbase=shared,/usr --with-pdo-firebird=shared,/usr
-#else
-#CONFIGURE_APACHE_ARGS = --without-interbase --without-pdo-firebird
-#endif
-
-# only enable interbase support on archs where it is supported
-ifneq (,$(filter $(DEB_HOST_ARCH),amd64 armel armhf i386 ia64 kfreebsd-amd64 kfreebsd-i386 mips mipsel powerpc s390 sparc))
-	CONFIGURE_APACHE_ARGS=--with-interbase=shared,/usr \
-		--with-pdo-firebird=shared,/usr
-endif
-
-
-ifeq (yes,$(RUN_TESTS))
-  MYSQL_PORT := $(shell for i in $$(seq 1025 3600 | sort -R); do nc -z localhost $$i || { echo $$i; exit; } ; done)
-  MYSQL_DATA_DIR ?= $(shell readlink -f mysql_db)
-  ifeq (,$(MYSQL_PORT))
-      $(error Could not find available port for mysql server)
-  endif
-  MYSQL_SOCKET = $(MYSQL_DATA_DIR)/mysql.sock
-endif
+MYSQL_SOCKET = $(MYSQL_DATA_DIR)/mysql.sock
 
 # specify some options to our patch system
 QUILT_DIFF_OPTS=-p
@@ -111,10 +75,16 @@ else
 LIBTOOL_CONFLICTS:=$(error "could not resolve path to ltmain.sh")
 endif
 
-#ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-#    NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-#    MAKEFLAGS += -j$(NUMJOBS)
-#endif
+# only enable interbase support on archs where it is supported
+ifneq (,$(filter $(DEB_HOST_ARCH),amd64 armel armhf i386 ia64 kfreebsd-amd64 kfreebsd-i386 mips mipsel powerpc s390 sparc))
+	IBFLAGS=--with-interbase=shared,/usr \
+		--with-pdo-firebird=shared,/usr
+endif
+
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+    NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+    MAKEFLAGS += -j$(NUMJOBS)
+endif
 
 # enable the hardening wrapper
 DEB_BUILD_HARDENING = 1
@@ -192,12 +162,6 @@ include /usr/share/quilt/quilt.make
 prepared: prepared-stamp
 prepared-stamp: $(QUILT_STAMPFN)
 	dh_testdir
-ifeq (yes,$(PHP5_SUHOSIN))
-	QUILT_PATCHES=$(QUILT_PATCH_DIR) \
-		quilt --quiltrc /dev/null import debian/patches/suhosin.patch
-	QUILT_PATCHES=$(QUILT_PATCH_DIR) \
-		quilt --quiltrc /dev/null push -a || test $$? = 2
-endif
 	sed -i -e 's/EXTRA_VERSION=""/EXTRA_VERSION="-$(PHP5_DEBIAN_REVISION)"/' configure.in
 	./buildconf --force
 	touch prepared-stamp
@@ -207,8 +171,8 @@ unprepared:
 	sed -i -e 's/EXTRA_VERSION="-$(PHP5_DEBIAN_REVISION)"/EXTRA_VERSION=""/' configure.in
 	rm -f prepared-stamp
 
-test-results.txt: build-apache2-stamp build-cli-stamp build-cgi-stamp
-ifeq (yes,$(RUN_TESTS))
+test-results.txt: build-apache2-stamp build-cli-stamp build-cgi-stamp build-fpm-stamp
+ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
 	mkdir -p temp_session_store
 	# start our own mysql server for the tests
 	$(SHELL) debian/setup-mysql.sh $(MYSQL_PORT) $(MYSQL_DATA_DIR)
@@ -246,7 +210,7 @@ ifeq (yes,$(RUN_TESTS))
 	done | tee -a test-results.txt
 	$(SHELL) debian/setup-mysql.sh $(MYSQL_PORT) $(MYSQL_DATA_DIR) stop
 else
-	echo 'nocheck found in DEB_BUILD_OPTIONS or unsupported architecture' | tee test-results.txt
+	echo 'nocheck found in DEB_BUILD_OPTIONS' | tee test-results.txt
 endif
 
 build: build-apache2-stamp build-apache2filter-stamp build-cgi-stamp build-cli-stamp build-fpm-stamp build-pear-stamp test-results.txt
@@ -305,7 +269,6 @@ build-pear-stamp: build-cgi-stamp
 	       -e 's/-d output_buffering=1 -d open_basedir="" -d safe_mode=0/-d output_buffering=1 -d open_basedir="" -d safe_mode=0 -d memory_limit="-1"/' \
 	       $(CURDIR)/pear-build/usr/bin/peardev
 	sed -i -re "s#('PEAR_CONFIG_SYSCONFDIR', PHP_SYSCONFDIR)#\1 . '/pear'#" $(CURDIR)/pear-build/usr/share/php/PEAR/Config.php
-	patch -s -d $(CURDIR)/pear-build/usr/share/php/ -p1 -i $(CURDIR)/debian/patches/PEAR-Builder-print-info-about-php5-dev.patch
 	touch build-pear-stamp
 
 configure: configure-apache2-stamp configure-apache2filter-stamp configure-cli-stamp configure-fpm-stamp configure-cgi-stamp
@@ -349,8 +312,7 @@ configure-apache2-stamp: prepared-stamp
 		--with-mssql=shared,/usr \
 		--with-tidy=shared,/usr \
 		--with-xmlrpc=shared \
-		--with-pgsql=shared,/usr PGSQL_INCLUDE=`pg_config --includedir` \
-		$(CONFIGURE_APACHE_ARGS)
+		--with-pgsql=shared,/usr PGSQL_INCLUDE=`pg_config --includedir`
 	cd apache2-build && \
 	cp ../Zend/zend_ini_scanner.c ../Zend/zend_language_scanner.c \
 	   ../Zend/zend_ini_parser.h ../Zend/zend_language_parser.h \
@@ -445,11 +407,6 @@ clean: unprepared unpatch
 	dh_testdir
 	dh_testroot
 
-ifeq (yes,$(PHP5_SUHOSIN))
-	QUILT_PATCHES=$(QUILT_PATCH_DIR) \
-		quilt --quiltrc /dev/null delete debian/patches/suhosin.patch \
-	        || return 0
-endif
 
 	rm -f configure-apache2-stamp build-apache2-stamp
 	rm -f configure-apache2filter-stamp build-apache2filter-stamp
@@ -465,13 +422,11 @@ endif
 	rm -rf fpm-build
 	rm -rf pear-build pear-build-download
 	rm -f debian/copyright
-    # just in case the build tests failed, kill the running mysqld
-	$(SHELL) debian/setup-mysql.sh $(MYSQL_PORT) $(MYSQL_DATA_DIR) stop > /dev/null 2>&1 || exit 0
 	rm -rf test-results.txt $(MYSQL_DATA_DIR)
 	dh_clean -Xorig
 
 	# clean up autogenerated cruft
-	cat debian/modulelist | while read package extname dsoname priority; do \
+	cat debian/modulelist | while read package extname dsoname; do \
 		rm -f debian/php5-$$package.postinst; \
 	done
 	for sapi in libapache2-mod-php5 libapache2-mod-php5filter php5-cgi php5-cli php5-fpm; do \
@@ -480,13 +435,11 @@ endif
 		done; \
 	done
 
-PCNTL_FUNCTIONS := $(shell < ext/pcntl/php_pcntl.h sed -ne "/^PHP_FUNCTION/ s/PHP_FUNCTION(\(.*\));/\1/;t end;d;:end p" | tr '\n' ',')
-
 install: DH_OPTIONS=
 install: build
 	dh_testdir
 	dh_testroot
-	dh_prep
+	dh_clean -k
 	dh_installdirs
 
 	chmod 01733 debian/php5-common/var/lib/php5
@@ -510,10 +463,8 @@ install: build
 		debian/libapache2-mod-php5filter/etc/apache2/mods-available/php5filter.conf
 
 	# sanitize php.ini file
-	cat php.ini-production | tr "\t" " " | sed -e'/short_open_tag =/ s/Off/On/g;/session.gc_probability =/ s/1/0/g;/disable_functions =/ s/$$/ $(PCNTL_FUNCTIONS)/g;' > debian/php5-common/usr/share/php5/php.ini-production
-	# memory_limit: 16M for cgi/apache; 32M for cli
-	cat php.ini-production | tr "\t" " " | sed -e'/memory_limit =/ s/128M/-1/g;/short_open_tag =/ s/Off/On/g;/session.gc_probability =/ s/1/0/g' > debian/php5-common/usr/share/php5/php.ini-production.cli
-	cat php.ini-production | tr "\t" " " | sed -e'/memory_limit =/ s/128M/32M/g' > debian/php5-common/usr/share/php5/php.ini-production-dist
+	cat php.ini-production | tr "\t" " " > debian/php5-common/usr/share/php5/php.ini-production
+	cat php.ini-production | tr "\t" " " | sed -e'/memory_limit =/ s/128M/-1/g' > debian/php5-common/usr/share/php5/php.ini-production.cli
 	cat php.ini-development | tr "\t" " " > debian/php5-common/usr/share/doc/php5-common/examples/php.ini-development
 	cp test-results.txt debian/php5-common/usr/share/doc/php5-common/
 
@@ -560,16 +511,13 @@ install: build
 	for i in libapache2-mod-php5 libapache2-mod-php5filter php5-cgi php5-fpm php5-cli; do \
 		mkdir -p debian/$$i/$${ext}; \
 	done; \
-	cat debian/modulelist debian/extramodulelist | while read package extname dsoname priority; do \
-		if [ "$$package" = "mysqlnd" ]; then \
-			modulepath=cgi-build/modules; \
-		else \
-			modulepath=debian/libapache2-mod-php5/$${ext}; \
-		fi; \
+	cat debian/modulelist debian/extramodulelist | while read package extname dsoname; do \
 		if [ -z "$$dsoname" ]; then dsoname=$$package; fi; \
 		mkdir -p debian/php5-$$package$${ext}; \
+		chrpath debian/libapache2-mod-php5/$${ext}/$$dsoname.so; \
+		chrpath -d debian/libapache2-mod-php5/$${ext}/$$dsoname.so; \
 		install -m 644 -o root -g root \
-			$${modulepath}/$$dsoname.so \
+			debian/libapache2-mod-php5/$${ext}/$$dsoname.so \
 			debian/php5-$$package$${ext}/$$dsoname.so; \
 		rm debian/libapache2-mod-php5/$${ext}/$$dsoname.so; \
 	done
@@ -620,8 +568,6 @@ install: build
 		mv debian/php5-dev/usr/bin/$$i debian/php5-dev/usr/bin/"$$i"5; \
 		mv debian/php5-dev/usr/share/man/man1/"$$i".1 debian/php5-dev/usr/share/man/man1/"$$i"5.1; \
 	done
-	# remove windows devel file
-	rm $(CURDIR)/debian/php5-dev/usr/share/php5/skeleton/skeleton.dsp
 
 	# install common files
 	install -m755 debian/maxlifetime debian/php5-common/usr/lib/php5
@@ -629,18 +575,13 @@ install: build
 	# install lintian overrides
 	cp debian/php5.lintian-overrides $(CURDIR)/debian/php5-common/usr/share/lintian/overrides/php5-common
 	cp debian/php5-dev.lintian-overrides $(CURDIR)/debian/php5-dev/usr/share/lintian/overrides/php5-dev
-	cp debian/php-pear.lintian-overrides $(CURDIR)/debian/php-pear/usr/share/lintian/overrides/php-pear
-
-	# install the apport hook
-	install -D -m 644 debian/source_php5.py debian/php5-common/usr/share/apport/package-hooks/source_php5.py
 
 	# install some generic lintian overrides
 	ext=`debian/php5-dev/usr/bin/php-config5 --extension-dir | cut -b2- `; \
 	for sapi in php5-cli php5-fpm php5-cgi libapache2-mod-php5 libapache2-mod-php5filter; do \
 		mkdir -p $(CURDIR)/debian/"$$sapi"/usr/share/lintian/overrides/; \
 		sed "s/@sapi@/$$sapi/g;s,@extdir@,$$ext,g" \
-		    < $(CURDIR)/debian/php5-sapi.lintian-overrides | \
-		grep -E "^$${sapi}: " \
+		    < $(CURDIR)/debian/php5-sapi.lintian-overrides \
 		    >> $(CURDIR)/debian/"$$sapi"/usr/share/lintian/overrides/"$$sapi"; \
 	done
 
@@ -683,49 +624,44 @@ binary-arch: build install
 	#
 	# generate the maintscripts for various php
 	# modules from the templates.
-	cat debian/modulelist | while read package extname dsoname priority; do \
+	cat debian/modulelist | while read package extname dsoname; do \
 		if [ -z "$$dsoname" ]; then dsoname=$$package; fi; \
 		sed -e"s/@extname@/$$extname/g; s/@dsoname@/$$dsoname/g; \
 		       /#EXTRA#/ r debian/php5-$${package}.postinst.extra" \
 		  < debian/php5-module.postinst \
 		| sed -e'/#EXTRA#/ d' \
 		  > debian/php5-$${package}.postinst; \
-		c=`grep -vE '^(#|set|$$|exit 0)' < debian/php5-$${package}.postinst | wc -l`; \
+		c=`grep -vE '^(#|set|$$)' < debian/php5-$${package}.postinst | wc -l`; \
 		[ "$$c" != "0" ] || $(RM) debian/php5-$${package}.postinst; \
 	done
 
 	# generate the config snippets for various php
 	# modules from the templates.
-	cat debian/modulelist debian/extramodulelist | while read package extname dsoname priority; do \
+	cat debian/modulelist debian/extramodulelist | while read package extname dsoname; do \
 		if [ -z "$$dsoname" ]; then dsoname=$$package; fi; \
-		if [ -n "$$priority" ]; then prepend="$${priority}-"; else prepend=""; fi; \
 		mkdir -p debian/php5-$$package/etc/php5/conf.d; \
 		sed -e"s/@extname@/$$extname/g; s/@dsoname@/$$dsoname/g" \
 		  < debian/php5-module.ini \
-		  > debian/php5-$${package}/etc/php5/conf.d/$${prepend}$${dsoname}.ini; \
+		  > debian/php5-$${package}/etc/php5/conf.d/$${dsoname}.ini; \
 	done
 
 	# likewise, for the different sapi implementations
 	for tmpl in postrm links; do \
-		for sapi in cgi cli fpm; do \
-			sed -e "s/@sapi@/$$sapi/g;s/@package@/php5-$${sapi}/g" \
+		for sapi in apache2 apache2filter cgi cli fpm; do \
+			sed -e "s/@sapi@/$$sapi/g" \
 		  	< debian/php5-sapi.$$tmpl \
 		  	> debian/php5-$${sapi}.$$tmpl; \
 		done; \
+		mv debian/php5-apache2.$$tmpl debian/libapache2-mod-php5.$$tmpl; \
+		mv debian/php5-apache2filter.$$tmpl debian/libapache2-mod-php5filter.$$tmpl; \
 	done
-	for tmpl in postrm links; do \
-		sed -e "s/@sapi@/apache2/g;s/@package@/libapache2-mod-php5/g" \
-		  < debian/php5-sapi.$$tmpl \
-		  > debian/libapache2-mod-php5.$$tmpl; \
-		sed -e "s/@sapi@/apache2filter/g;s/@package@/libapache2-mod-php5filter/g" \
-		  < debian/php5-sapi.$$tmpl \
-		  > debian/libapache2-mod-php5filter.$$tmpl; \
-	done
+
+	sed -i -e 's/exit 0/dpkg-maintscript-helper mv_conffile \/etc\/php5\/fpm\/main.conf \/etc\/php5\/fpm\/php-fpm.conf 5.3.5-1 -- \"\$\@\"\n\nexit 0/' debian/php5-fpm.postrm
 
 	cat debian/copyright.header LICENSE Zend/LICENSE > debian/copyright
 	dh_installdocs -s
 
-	cat debian/modulelist | while read package extname dsoname priority; do \
+	cat debian/modulelist | while read package extname dsoname; do \
 		rm -rf debian/php5-$$package/usr/share/doc/php5-$$package; \
 		ln -s php5-common debian/php5-$$package/usr/share/doc/php5-$$package; \
 	done
@@ -748,7 +684,7 @@ binary-arch: build install
 	for i in libapache2-mod-php5 libapache2-mod-php5filter php5-cgi php5-cli php5-fpm; do \
 		echo "php:Provides=phpapi-$${phpapi}" >> debian/$$i.substvars; \
 	done; \
-	cat debian/modulelist | while read package extname dsoname priority; do \
+	cat debian/modulelist | while read package extname dsoname; do \
 		echo "php:Depends=phpapi-$${phpapi}" >> debian/php5-$$package.substvars; \
 	done
 
