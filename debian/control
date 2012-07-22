@@ -1,11 +1,7 @@
 Source: php5
-Section: php
+Section: experimental/php
 Priority: optional
-Maintainer: Debian PHP Maintainers <pkg-php-maint@lists.alioth.debian.org>
-Uploaders: Ondřej Surý <ondrej@debian.org>,
-	   Sean Finney <seanius@debian.org>,
-	   Thijs Kinkhorst <thijs@debian.org>,
-	   Lior Kaplan <kaplan@debian.org>
+Maintainer: Jean Baptiste Favre <jbfavre@dotbuntu.org>
 Build-Depends: apache2-prefork-dev,
 	       autoconf (>= 2.63),
 	       automake (>= 1.11) | automake1.11,
@@ -49,12 +45,12 @@ Build-Depends: apache2-prefork-dev,
 	       libsnmp-dev,
 	       libsqlite3-dev,
 	       libssl-dev,
+	       libt1-dev,
 	       libtidy-dev,
 	       libtool (>= 2.2),
 	       libwrap0-dev,
 	       libxmltok1-dev,
 	       libxml2-dev,
-	       libxpm-dev,
 	       libxslt1-dev (>= 1.0.18),
 	       locales-all | language-pack-de,
 	       mysql-server,
@@ -90,23 +86,6 @@ Depends: ${misc:Depends}, sed (>= 4.1.1-1), psmisc (>= 22.15-1~), ${shlibs:Depen
 Pre-Depends: dpkg (>= 1.15.7.2~)
 Provides: php5-json, php5-mhash
 Conflicts: php5-json, php5-mhash
-Breaks: jffnms (<= 0.9.1-1),
-	d-push (<= 1.5.5-1),
-	dotclear (<= 2.4.0+dfsg-1),
-	boinc-server-maker (<= 7.0.14+dfsg-1),
-	gforge-common (<= 5.1.1-2),
-	php5-gpib (<= 3.2.11-2.1),
-	libow-php5 (<= 2.8p14-3),
-	php-openid (<= 2.2.2-1),
-	php-radius-legacy (<= 1.2.5-2.1),
-	php-imlib (<= 0.7-3),
-	fossology-common (<= 1.2.0-3.1),
-	lwat (<= 0.17-4.2),
-	zoph (<= 0.8.0.1-1),
-	phpreports (<= 0.4.9-2),
-	php-kolab-filter (<= 0.1.9-4),
-	horde3 (<= 3.3.12+debian0-1),
-	moodle (<= 1.9.9.dfsg2-4)
 Description: Common files for packages built from the php5 source
  This package contains the documentation and example files relevant to all
  the other packages built from the php5 source.
@@ -116,7 +95,7 @@ Description: Common files for packages built from the php5 source
  for web development and can be embedded into HTML.
 
 Package: libapache2-mod-php5
-Section: httpd
+Section: experimental/httpd
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, mime-support, ${apache2:Depends}, php5-common (= ${binary:Version}), libmagic1, ucf, tzdata
 Conflicts: libapache2-mod-php4, libapache2-mod-php5filter
@@ -135,7 +114,7 @@ Description: server-side, HTML-embedded scripting language (Apache 2 module)
  for web development and can be embedded into HTML.
 
 Package: libapache2-mod-php5filter
-Section: httpd
+Section: experimental/httpd
 Priority: extra
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, mime-support, ${apache2:Depends}, php5-common (= ${binary:Version}), libmagic1, ucf, tzdata
@@ -235,7 +214,7 @@ Description: Files for PHP5 module development
 Package: php5-dbg
 Depends: ${misc:Depends}, php5-common (= ${binary:Version}), libapache2-mod-php5 (= ${binary:Version}) | libapache2-mod-php5filter (= ${binary:Version}) | php5-cgi (= ${binary:Version}) | php5-cli (= ${binary:Version}) | php5-fpm (= ${binary:Version}) | php5-curl (= ${binary:Version}) | php5-enchant (= ${binary:Version}) | php5-gd (= ${binary:Version}) | php5-gmp (= ${binary:Version}) | php5-imap (= ${binary:Version}) | php5-interbase (= ${binary:Version}) | php5-intl (= ${binary:Version}) | php5-ldap (= ${binary:Version}) | php5-mcrypt (= ${binary:Version}) | php5-mysql (= ${binary:Version}) | php5-odbc (= ${binary:Version}) | php5-pgsql (= ${binary:Version}) | php5-pspell (= ${binary:Version}) | php5-recode (= ${binary:Version}) | php5-snmp (= ${binary:Version}) | php5-sqlite (= ${binary:Version}) | php5-sybase (= ${binary:Version}) | php5-tidy (= ${binary:Version}) | php5-xmlrpc (= ${binary:Version}) | php5-xsl (= ${binary:Version})
 Recommends: gdb
-Section: debug
+Section: experimental/debug
 Priority: extra
 Architecture: any
 Description: Debug symbols for PHP5

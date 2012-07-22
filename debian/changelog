@@ -1,3 +1,11 @@
+php5 (5.4.5-1~tooptee10+1) lucid; urgency=low
+
+  * New upstream version
+  * Sync with Debian / Dotdeb
+  * Move to experimental section to allow multiple versions in the same repo
+
+ -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Sun, 22 Jul 2012 21:58:21 +0200
+
 php5 (5.4.3-5~tooptee10+1) lucid; urgency=low
 
   * dotBuntu build for Ubuntu 10.04 Lucid
