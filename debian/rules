@@ -135,7 +135,7 @@ COMMON_CONFIG=--build=$(DEB_BUILD_GNU_TYPE) \
 		--with-gettext \
 		--enable-mbstring \
 		--with-onig=/usr \
-		--with-pcre-regex=/usr \
+		--with-pcre-regex \
 		--enable-shmop \
 		--enable-sockets \
 		--enable-wddx \
@@ -301,7 +301,7 @@ configure-apache2-stamp: prepared-stamp
 		--with-imap=shared,/usr \
 		--with-imap-ssl \
 		--enable-intl=shared \
-		--without-t1lib \
+		--with-t1lib=shared,/usr \
 		--with-ldap=shared,/usr \
 		--with-ldap-sasl=/usr \
 		--with-mcrypt=shared,/usr \
