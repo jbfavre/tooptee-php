@@ -45,12 +45,6 @@ ifeq ($(DEB_HOST_ARCH),$(findstring hurd-i386,$(DEB_HOST_ARCH)))
   RUN_TESTS = no
 endif
 
-#ifneq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH),hurd-i386 m68k hppa ppc64))
-#  CONFIGURE_APACHE_ARGS = --with-interbase=shared,/usr --with-pdo-firebird=shared,/usr
-#else
-#CONFIGURE_APACHE_ARGS = --without-interbase --without-pdo-firebird
-#endif
-
 # only enable interbase support on archs where it is supported
 ifneq (,$(filter $(DEB_HOST_ARCH),amd64 armel armhf i386 ia64 kfreebsd-amd64 kfreebsd-i386 mips mipsel powerpc s390 sparc))
 	CONFIGURE_APACHE_ARGS=--with-interbase=shared,/usr \
@@ -194,9 +188,9 @@ prepared-stamp: $(QUILT_STAMPFN)
 	dh_testdir
 ifeq (yes,$(PHP5_SUHOSIN))
 	QUILT_PATCHES=$(QUILT_PATCH_DIR) \
-		quilt --quiltrc /dev/null import debian/patches/suhosin.patch
+	        quilt --quiltrc /dev/null import debian/patches/suhosin.patch
 	QUILT_PATCHES=$(QUILT_PATCH_DIR) \
-		quilt --quiltrc /dev/null push -a || test $$? = 2
+	        quilt --quiltrc /dev/null push -a || test $$? = 2
 endif
 	sed -i -e 's/EXTRA_VERSION=""/EXTRA_VERSION="-$(PHP5_DEBIAN_REVISION)"/' configure.in
 	./buildconf --force
@@ -305,7 +299,7 @@ build-pear-stamp: build-cgi-stamp
 	       -e 's/-d output_buffering=1 -d open_basedir="" -d safe_mode=0/-d output_buffering=1 -d open_basedir="" -d safe_mode=0 -d memory_limit="-1"/' \
 	       $(CURDIR)/pear-build/usr/bin/peardev
 	sed -i -re "s#('PEAR_CONFIG_SYSCONFDIR', PHP_SYSCONFDIR)#\1 . '/pear'#" $(CURDIR)/pear-build/usr/share/php/PEAR/Config.php
-	patch -s -d $(CURDIR)/pear-build/usr/share/php/ -p1 -i $(CURDIR)/debian/patches/PEAR-Builder-print-info-about-php5-dev.patch
+	#patch -s -d $(CURDIR)/pear-build/usr/share/php/ -p1 -i $(CURDIR)/debian/patches/PEAR-Builder-print-info-about-php5-dev.patch
 	touch build-pear-stamp
 
 configure: configure-apache2-stamp configure-apache2filter-stamp configure-cli-stamp configure-fpm-stamp configure-cgi-stamp

@@ -1,13 +1,9 @@
 Source: php5
 Section: php
 Priority: optional
-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
-XSBC-Original-Maintainer: Debian PHP Maintainers <pkg-php-maint@lists.alioth.debian.org>
-Uploaders: Ondřej Surý <ondrej@debian.org>,
-	   Sean Finney <seanius@debian.org>,
-	   Thijs Kinkhorst <thijs@debian.org>
+Maintainer: Jean Baptiste Favre <jbfavre@dotbuntu.org>
 Build-Depends: apache2-prefork-dev,
-	       autoconf (>= 2.63),
+	       autoconf,
 	       automake (>= 1.11) | automake1.11,
 	       bison,
 	       chrpath,
@@ -19,7 +15,7 @@ Build-Depends: apache2-prefork-dev,
 	       libapr1-dev (>= 1.2.7-8),
 	       libbz2-dev,
 	       libc-client-dev,
-	       libcurl4-openssl-dev,
+	       libcurl4-openssl-dev | libcurl-dev,
 	       libdb-dev,
 	       libenchant-dev,
 	       libevent-dev (>= 1.4.11),
