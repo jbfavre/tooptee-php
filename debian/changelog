@@ -1,3 +1,9 @@
+php5 (5.3.15-2~tooptee12+1) precise; urgency=low
+
+  * Sync with Dotdeb
+
+ -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Mon, 23 Jul 2012 01:26:25 +0200
+
 php5 (5.3.15-1~tooptee12+1) precise; urgency=low
 
   * New upstream version 5.3.15
