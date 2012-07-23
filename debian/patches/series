@@ -1,5 +1,4 @@
 001-libtool_fixes.patch
-002-static_openssl.patch
 006-debian_quirks.patch
 libtool2.2.patch
 019-z_off_t_as_long.patch

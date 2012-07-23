@@ -1,7 +1,7 @@
 diff -urN php5-5.3.10.orig//configure php5-5.3.10/configure
 --- php5-5.3.10.orig//configure	2012-02-02 18:36:30.000000000 +0000
 +++ php5-5.3.10/configure	2012-02-02 22:11:23.000000000 +0000
-@@ -19435,6 +19435,9 @@
+@@ -19371,6 +19371,9 @@
  
  fi
  
@@ -10,8 +10,8 @@ diff -urN php5-5.3.10.orig//configure php5-5.3.10/configure
 +EOF
  
    echo $ac_n "checking for declared timezone""... $ac_c" 1>&6
- echo "configure:19441: checking for declared timezone" >&5
-@@ -115909,7 +115912,7 @@
+ echo "configure:19377: checking for declared timezone" >&5
+@@ -115830,7 +115833,7 @@
         php_ini.c SAPI.c rfc1867.c php_content_types.c strlcpy.c \
         strlcat.c mergesort.c reentrancy.c php_variables.c php_ticks.c \
         network.c php_open_temporary_file.c php_logos.c \
@@ -20,7 +20,7 @@ diff -urN php5-5.3.10.orig//configure php5-5.3.10/configure
    
        IFS=.
        set $ac_src
-@@ -116113,7 +116116,7 @@
+@@ -116034,7 +116037,7 @@
      zend_list.c zend_indent.c zend_builtin_functions.c zend_sprintf.c \
      zend_ini.c zend_qsort.c zend_multibyte.c zend_ts_hash.c zend_stream.c \
      zend_iterators.c zend_interfaces.c zend_exceptions.c zend_strtod.c zend_gc.c \
@@ -170,7 +170,7 @@ diff -urN php5-5.3.10.orig//main/main.c php5-5.3.10/main/main.c
 +#include "suhosin_globals.h"
 +#endif
  
- #if HAVE_MMAP || defined(PHP_WIN32)
+ #if HAVE_MMAP
  # if HAVE_UNISTD_H
 @@ -504,7 +507,7 @@
  	STD_PHP_INI_ENTRY("extension_dir",			PHP_EXTENSION_DIR,		PHP_INI_SYSTEM,		OnUpdateStringUnempty,	extension_dir,			php_core_globals,	core_globals)
@@ -232,7 +232,7 @@ diff -urN php5-5.3.10.orig//main/php_config.h.in php5-5.3.10/main/php_config.h.i
 diff -urN php5-5.3.10.orig//main/php.h php5-5.3.10/main/php.h
 --- php5-5.3.10.orig//main/php.h	2012-01-01 13:15:04.000000000 +0000
 +++ php5-5.3.10/main/php.h	2012-02-02 22:11:23.000000000 +0000
-@@ -449,6 +449,10 @@
+@@ -454,6 +454,10 @@
  #endif
  #endif /* !XtOffsetOf */
  
@@ -1195,7 +1195,7 @@ diff -urN php5-5.3.10.orig//sapi/apache_hooks/mod_php5.c php5-5.3.10/sapi/apache
 diff -urN php5-5.3.10.orig//sapi/cgi/cgi_main.c php5-5.3.10/sapi/cgi/cgi_main.c
 --- php5-5.3.10.orig//sapi/cgi/cgi_main.c	2012-01-01 13:15:04.000000000 +0000
 +++ php5-5.3.10/sapi/cgi/cgi_main.c	2012-02-02 22:11:23.000000000 +0000
-@@ -1955,11 +1955,19 @@
+@@ -1932,11 +1932,19 @@
  								SG(headers_sent) = 1;
  								SG(request_info).no_headers = 1;
  							}
@@ -5160,7 +5160,7 @@ diff -urN php5-5.3.10.orig//Zend/zend_hash.c php5-5.3.10/Zend/zend_hash.c
 --- php5-5.3.10.orig//Zend/zend_hash.c	2012-01-01 13:15:04.000000000 +0000
 +++ php5-5.3.10/Zend/zend_hash.c	2012-02-02 22:11:23.000000000 +0000
 @@ -20,6 +20,7 @@
- /* $Id$ */
+ /* $Id: zend_hash.c 321634 2012-01-01 13:15:04Z felipe $ */
  
  #include "zend.h"
 +#include "zend_compile.h"
