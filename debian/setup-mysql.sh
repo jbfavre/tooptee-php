@@ -12,25 +12,43 @@ port=$1
 datadir=$2
 action=${3:-start}
 
+localbase=`dirname $datadir`/mysql_base
+
+if [ "$(id -u)" -eq 0 ];
+then
+    myuser="mysql"
+else
+    myuser=$(whoami)
+fi
+echo "********** Running MySQL as $myuser"
 # Some vars #
 
 socket=$datadir/mysql.sock
 # Commands:
 mysqladmin="mysqladmin -u root -P $port -h localhost --socket=$socket"
-mysqld="/usr/sbin/mysqld --no-defaults --bind-address=localhost --port=$port --socket=$socket --datadir=$datadir --user=$USER"
+mysqld="$localbase/bin/mysqld --no-defaults --bind-address=127.0.0.1 --port=$port --socket=$socket --datadir=$datadir --user=$myuser"
 
 # Main code #
 
 if [ "$action" = "stop" ]; then
     $mysqladmin shutdown
+    rm -rf $localbase
     exit
 fi
+
+# Copy the necessary pieces of mysql to a local dir to avoid apparmor restrictions
+rm -rf $localbase
+mkdir -p $localbase/bin
+mkdir -p $localbase/share
+cp /usr/sbin/mysqld $localbase/bin
+cp /usr/bin/my_print_defaults $localbase/bin
+cp -r /usr/share/mysql $localbase/share
 
 rm -rf $datadir
 mkdir -p $datadir
 chmod go-rx $datadir
 
-mysql_install_db --datadir=$datadir --rpm --force >> $datadir/bootstrap.log 2>&1
+mysql_install_db --basedir=$localbase --datadir=$datadir --rpm --force --tmpdir=/tmp --user=$myuser >> $datadir/install_db.log 2>&1
 
 tmpf=$(mktemp)
 cat > "$tmpf" <<EOF
@@ -63,5 +81,3 @@ while ! nc -z localhost $port; do
 	exit 1
     fi
 done
-
-$mysqladmin create test || exit 0
