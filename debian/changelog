@@ -1,3 +1,9 @@
+php5 (5.3.18-2~tooptee12+1) precise; urgency=low
+
+  * New upstream version 5.3.18
+
+ -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Thu, 18 Oct 2012 23:08:20 +0200
+
 php5 (5.3.17-1~tooptee12+1) precise; urgency=low
 
   * New upstream version 5.3.17 
