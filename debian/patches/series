@@ -12,7 +12,6 @@ libtool2.2.patch
 sybase-alias.patch
 qdbm-is-usr_include_qdbm.patch
 session_save_path.patch
-php-fpm-man-section-and-cleanup.patch
 fpm-config.patch
 php-fpm-sysconfdir.patch
 php-5.3.9-mysqlnd.patch
