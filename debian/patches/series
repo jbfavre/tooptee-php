@@ -11,7 +11,6 @@ libtool2.2.patch
 101-sqlite_is_shared.patch
 115-autoconf_ftbfs.patch
 qdbm-is-usr_include_qdbm.patch
-php-fpm-man-section-and-cleanup.patch
 fpm-config.patch
 php-fpm-sysconfdir.patch
 temporary-path-fixes-for-multiarch.patch
