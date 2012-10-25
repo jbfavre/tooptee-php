@@ -1,6 +1,7 @@
-php5 (5.4.8-3~tooptee10+1) lucid; urgency=low
+php5 (5.4.8-4~tooptee10+1) lucid; urgency=low
 
   * New upstream version 5.4.8
+  * Fix issue with dpkg-maintscript-helper
 
  -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Thu, 18 Oct 2012 23:11:07 +0200
 
