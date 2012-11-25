@@ -2,51 +2,51 @@ php5 (5.3.18-3~tooptee10+1) lucid; urgency=low
 
   * New upstream version 5.3.18
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Thu, 18 Oct 2012 23:04:21 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Thu, 18 Oct 2012 23:04:21 +0200
 
 php5 (5.3.17-1~tooptee10+1) lucid; urgency=low
 
   * New upstream version 5.3.17 
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Tue, 25 Sep 2012 09:25:39 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Tue, 25 Sep 2012 09:25:39 +0200
 
 php5 (5.3.16-1~tooptee10+1) lucid; urgency=low
 
   * New upstream version 5.3.16
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Fri, 17 Aug 2012 09:49:09 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Fri, 17 Aug 2012 09:49:09 +0200
 
 php5 (5.3.15-2~tooptee10+1) lucid; urgency=low
 
   * Sync with Dotdeb
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Mon, 23 Jul 2012 00:34:01 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Mon, 23 Jul 2012 00:34:01 +0200
 
 php5 (5.3.15-1~tooptee10+1) lucid; urgency=low
 
   * New upstream version
   * Sync with Debian / Dotdeb
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Sun, 22 Jul 2012 14:35:45 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Sun, 22 Jul 2012 14:35:45 +0200
 
 php5 (5.3.14-1~tooptee10+2) lucid; urgency=low
 
-  * dotBuntu build for Ubuntu 10.04 Lucid 
+  * build for Ubuntu 10.04 Lucid 
   * Fix dpkg Pre-depend issue for php5-fpm & php5-sqlite
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Mon, 02 Jul 2012 15:12:53 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Mon, 02 Jul 2012 15:12:53 +0200
 
 php5 (5.3.13-1~tooptee10+1) lucid; urgency=low
 
-  * dotBuntu build for Ubuntu 10.04 Lucid 
+  * build for Ubuntu 10.04 Lucid 
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Thu, 17 May 2012 11:58:34 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Thu, 17 May 2012 11:58:34 +0200
 
 php5 (5.3.10-1~tooptee10+1) lucid; urgency=low
 
-  * dotBuntu build for lucid
+  * build for lucid
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Wed, 16 May 2012 21:43:20 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Wed, 16 May 2012 21:43:20 +0200
 
 php5 (5.3.10-1ubuntu3) precise; urgency=low
 
