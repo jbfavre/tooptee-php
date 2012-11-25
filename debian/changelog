@@ -2,19 +2,19 @@ php5 (5.4.8-4~tooptee12+1) precise; urgency=low
 
   * New upstream version 5.4.8
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Thu, 18 Oct 2012 23:13:03 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Thu, 18 Oct 2012 23:13:03 +0200
 
 php5 (5.4.7-1~tooptee12+1) precise; urgency=low
 
   * New upstream version 5.4.7
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Tue, 25 Sep 2012 17:31:30 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Tue, 25 Sep 2012 17:31:30 +0200
 
 php5 (5.4.6-1~tooptee12+1) precise; urgency=low
 
   * New upstream version 5.4.6
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Fri, 17 Aug 2012 15:34:52 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Fri, 17 Aug 2012 15:34:52 +0200
 
 php5 (5.4.5-1~tooptee12+1) precise; urgency=low
 
@@ -22,13 +22,13 @@ php5 (5.4.5-1~tooptee12+1) precise; urgency=low
   * Sync with Debian / Dotdeb
   * Move to experimental section to allow multiple versions in the same repo
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Sun, 22 Jul 2012 23:32:36 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Sun, 22 Jul 2012 23:32:36 +0200
 
 php5 (5.4.3-5~tooptee12+1) precise; urgency=low
 
-  * dotBuntu build for Ubuntu 12.04 Precise
+  * build for Ubuntu 12.04 Precise
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Fri, 18 May 2012 10:59:14 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Fri, 18 May 2012 10:59:14 +0200
 
 php5 (5.4.3-4) unstable; urgency=low
 
