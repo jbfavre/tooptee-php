@@ -1,7 +1,7 @@
 Source: php5
 Section: php
 Priority: optional
-Maintainer: Jean Baptiste Favre <jbfavre@dotbuntu.org>
+Maintainer: Jean Baptiste Favre <jbfavre@tooptee.org>
 Build-Depends: apache2-prefork-dev,
 	       autoconf,
 	       automake (>= 1.11),

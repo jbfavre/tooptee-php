@@ -2,49 +2,49 @@ php5 (5.3.18-3~tooptee12+1) precise; urgency=low
 
   * New upstream version 5.3.18
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Thu, 18 Oct 2012 23:08:20 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Thu, 18 Oct 2012 23:08:20 +0200
 
 php5 (5.3.17-1~tooptee12+1) precise; urgency=low
 
   * New upstream version 5.3.17 
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Tue, 25 Sep 2012 11:33:39 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Tue, 25 Sep 2012 11:33:39 +0200
 
 php5 (5.3.16-1~tooptee12+1) precise; urgency=low
 
   * New upstream version 5.3.16
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Fri, 17 Aug 2012 08:48:49 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Fri, 17 Aug 2012 08:48:49 +0200
 
 php5 (5.3.15-2~tooptee12+1) precise; urgency=low
 
   * Sync with Dotdeb
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Mon, 23 Jul 2012 01:26:25 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Mon, 23 Jul 2012 01:26:25 +0200
 
 php5 (5.3.15-1~tooptee12+1) precise; urgency=low
 
   * New upstream version 5.3.15
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Fri, 20 Jul 2012 12:19:59 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Fri, 20 Jul 2012 12:19:59 +0200
 
 php5 (5.3.14-1~tooptee12+2) precise; urgency=low
 
-  * dotBuntu build for Ubuntu 12.04 Precise 
+  * build for Ubuntu 12.04 Precise 
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Mon, 02 Jul 2012 21:03:56 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Mon, 02 Jul 2012 21:03:56 +0200
 
 php5 (5.3.13-1~tooptee12+1) precise; urgency=low
 
-  * dotBuntu build for Ubuntu 12.04 Precise
+  * build for Ubuntu 12.04 Precise
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Thu, 17 May 2012 11:58:34 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Thu, 17 May 2012 11:58:34 +0200
 
 php5 (5.3.10-1~tooptee12+1) precise; urgency=low
 
-  * dotBuntu build for lucid
+  * build for lucid
 
- -- Jean Baptiste Favre <jbfavre@dotbuntu.org>  Wed, 16 May 2012 21:43:20 +0200
+ -- Jean Baptiste Favre <jbfavre@tooptee.org>  Wed, 16 May 2012 21:43:20 +0200
 
 php5 (5.3.10-1ubuntu3) precise; urgency=low
 
