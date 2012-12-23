@@ -1,3 +1,9 @@
+php5 (5.3.20-1~tooptee10+1) lucid; urgency=low
+
+  * New upstream version 5.3.20
+
+ -- Jean Baptiste Favre <ubuntu@jbfavre.org>  Sun, 23 Dec 2012 15:45:52 +0100
+
 php5 (5.3.19-3~tooptee10+1) lucid; urgency=low
 
   * Removed suhosin patch
