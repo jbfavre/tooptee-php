@@ -1,3 +1,9 @@
+php5 (5.3.20-1~tooptee12+1) precise; urgency=low
+
+  * New upstream version 5.3.20
+
+ -- Jean Baptiste Favre <ubuntu@jbfavre.org>  Sun, 23 Dec 2012 15:49:04 +0100
+
 php5 (5.3.19-3~tooptee12+1) precise; urgency=low
 
   * Remove unmaintained suhosin patch
