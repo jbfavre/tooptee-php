@@ -1,3 +1,9 @@
+php5 (5.4.11-1~tooptee10+1) lucid; urgency=low
+
+  * New upstream version 5.4.11
+
+ -- Jean Baptiste Favre <ubuntu@jbfavre.org>  Fri, 18 Jan 2013 12:59:32 +0100
+
 php5 (5.4.10-1~tooptee10+1) lucid; urgency=low
 
   * New upstream version 5.4.10
