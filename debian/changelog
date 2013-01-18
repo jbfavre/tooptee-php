@@ -1,3 +1,9 @@
+php5 (5.3.21-1~tooptee10+1) lucid; urgency=low
+
+  * New upstream version 5.3.21
+
+ -- Jean Baptiste Favre <ubuntu@jbfavre.org>  Fri, 18 Jan 2013 12:48:13 +0100
+
 php5 (5.3.20-1~tooptee10+1) lucid; urgency=low
 
   * New upstream version 5.3.20
@@ -67,7 +73,7 @@ php5 (5.3.10-1~tooptee10+1) lucid; urgency=low
 
  -- Jean Baptiste Favre <jbfavre@tooptee.org>  Wed, 16 May 2012 21:43:20 +0200
 
-php5 (5.3.10-1ubuntu3) precise; urgency=low
+php5 (5.3.10-1ubuntu3) lucid; urgency=low
 
   * Cherry picked fixes from Debian testing:
     - d/maxlifetime: Improve maxlifetime script to scan for more SAPIs and 
@@ -79,7 +85,7 @@ php5 (5.3.10-1ubuntu3) precise; urgency=low
 
  -- James Page <james.page@ubuntu.com>  Wed, 11 Apr 2012 14:27:10 +0100
 
-php5 (5.3.10-1ubuntu2) precise; urgency=low
+php5 (5.3.10-1ubuntu2) lucid; urgency=low
 
   * Pre-Depend on a new enough version of dpkg for dpkg-maintscript-helper
     rather than checking whether it exists at run-time, leading to more
@@ -87,7 +93,7 @@ php5 (5.3.10-1ubuntu2) precise; urgency=low
 
  -- Colin Watson <cjwatson@ubuntu.com>  Mon, 05 Mar 2012 12:21:35 +0000
 
-php5 (5.3.10-1ubuntu1) precise; urgency=low
+php5 (5.3.10-1ubuntu1) lucid; urgency=low
 
   * Merge from Debian testing.  Remaining changes:
     - d/control: build-depend on mysql 5.5 instead of 5.1 for running tests.
@@ -216,7 +222,7 @@ php5 (5.3.9-1) unstable; urgency=low
 
  -- Ondřej Surý <ondrej@debian.org>  Wed, 11 Jan 2012 16:33:20 +0100
 
-php5 (5.3.8.0-1ubuntu3) precise; urgency=low
+php5 (5.3.8.0-1ubuntu3) lucid; urgency=low
 
   * SECURITY UPDATE: Denial of service and possible information disclosure
     via exif integer overflow
@@ -226,14 +232,14 @@ php5 (5.3.8.0-1ubuntu3) precise; urgency=low
 
  -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 12 Dec 2011 15:14:28 -0500
 
-php5 (5.3.8.0-1ubuntu2) precise; urgency=low
+php5 (5.3.8.0-1ubuntu2) lucid; urgency=low
 
   * d/control: build-depend on mysql 5.5 instead of 5.1 for running tests.
   * d/setup-mysql.sh: modify to work with mysql 5.5 differences
 
  -- Clint Byrum <clint@ubuntu.com>  Thu, 24 Nov 2011 10:28:38 -0800
 
-php5 (5.3.8.0-1ubuntu1) precise; urgency=low
+php5 (5.3.8.0-1ubuntu1) lucid; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
     - debian/rules: export DEB_HOST_MULTIARCH properly.
@@ -270,13 +276,13 @@ php5 (5.3.8.0-1) unstable; urgency=low
 
  -- Sean Finney <seanius@debian.org>  Thu, 27 Oct 2011 17:17:02 +0200
 
-php5 (5.3.8-2ubuntu2) precise; urgency=low
+php5 (5.3.8-2ubuntu2) lucid; urgency=low
 
   * Rebuild for libicu48.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Wed, 23 Nov 2011 10:54:32 +0000
 
-php5 (5.3.8-2ubuntu1) precise; urgency=low
+php5 (5.3.8-2ubuntu1) lucid; urgency=low
 
   * Merge with Debian; remaining changes:
     - debian/rules: export DEB_HOST_MULTIARCH properly.
@@ -3699,7 +3705,7 @@ php4 (3:4.0.6.7rc2-2) unstable; urgency=low
   * Enable recode extension (the library is LGPL) - shared
   * Enable iconv extension - in main php4. Experimental
   * Build-Depends: s/libgd-dev/libgd2-dev/
-  * Build-Depends: libxml2-dev (>= 2.4.2) (Closes: #112304)
+  * Build-Depends: libxml2-dev (>= 2.4.2) (Closes: #110.04)
     and fix autoconf macros (Closes: #113980)
   * Improve?? description of PEAR (Closes: #112432)
 
