@@ -1,3 +1,9 @@
+php5 (5.3.21-1~tooptee12+1) precise; urgency=low
+
+  * New upstream version 5.3.21
+
+ -- Jean Baptiste Favre <ubuntu@jbfavre.org>  Fri, 18 Jan 2013 12:53:52 +0100
+
 php5 (5.3.20-1~tooptee12+1) precise; urgency=low
 
   * New upstream version 5.3.20
