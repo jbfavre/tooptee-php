@@ -10,9 +10,11 @@ Origin: vendor
 Forwarded: no
 Last-Update: 2010-01-18
 
---- a/ext/standard/info.c
-+++ b/ext/standard/info.c
-@@ -704,7 +704,7 @@ PHPAPI void php_print_info(int flag TSRM
+Index: php-5.4.11/ext/standard/info.c
+===================================================================
+--- php-5.4.11.orig/ext/standard/info.c	2013-02-16 12:22:27.000000000 +0000
++++ php-5.4.11/ext/standard/info.c	2013-02-16 12:28:11.000000000 +0000
+@@ -704,7 +704,7 @@
  #ifdef ARCHITECTURE
  		php_info_print_table_row(2, "Architecture", ARCHITECTURE);
  #endif
@@ -21,9 +23,11 @@ Last-Update: 2010-01-18
  		php_info_print_table_row(2, "Configure Command", CONFIGURE_COMMAND );
  #endif
  
---- a/ext/standard/tests/general_functions/phpinfo.phpt
-+++ b/ext/standard/tests/general_functions/phpinfo.phpt
-@@ -20,7 +20,6 @@ PHP Version => %s
+Index: php-5.4.11/ext/standard/tests/general_functions/phpinfo.phpt
+===================================================================
+--- php-5.4.11.orig/ext/standard/tests/general_functions/phpinfo.phpt	2013-02-16 12:22:28.000000000 +0000
++++ php-5.4.11/ext/standard/tests/general_functions/phpinfo.phpt	2013-02-16 12:28:11.000000000 +0000
+@@ -20,7 +20,6 @@
  
  System => %s
  Build Date => %s%a

@@ -5,9 +5,11 @@ Origin: vendor
 Forwarded: not-needed
 Last-Update: 2010-02-21
 
---- a/ext/dba/config.m4
-+++ b/ext/dba/config.m4
-@@ -113,6 +113,10 @@ if test "$PHP_QDBM" != "no"; then
+Index: php-5.4.11/ext/dba/config.m4
+===================================================================
+--- php-5.4.11.orig/ext/dba/config.m4	2013-02-16 12:22:25.000000000 +0000
++++ php-5.4.11/ext/dba/config.m4	2013-02-16 12:28:14.000000000 +0000
+@@ -113,6 +113,10 @@
        THIS_PREFIX=$i
        THIS_INCLUDE=$i/include/depot.h
        break

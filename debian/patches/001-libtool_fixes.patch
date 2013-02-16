@@ -1,6 +1,8 @@
---- a/TSRM/configure.in
-+++ b/TSRM/configure.in
-@@ -17,9 +17,6 @@ TSRM_BASIC_CHECKS
+Index: php-5.4.11/TSRM/configure.in
+===================================================================
+--- php-5.4.11.orig/TSRM/configure.in	2013-02-16 12:22:19.000000000 +0000
++++ php-5.4.11/TSRM/configure.in	2013-02-16 12:28:09.000000000 +0000
+@@ -17,9 +17,6 @@
  TSRM_THREADS_CHECKS
  	
  AM_PROG_LIBTOOL
@@ -10,9 +12,11 @@
  
  dnl TSRM_PTHREAD
  
---- a/configure.in
-+++ b/configure.in
-@@ -1399,9 +1399,6 @@ AC_PROVIDE_IFELSE([PHP_REQUIRE_CXX], [],
+Index: php-5.4.11/configure.in
+===================================================================
+--- php-5.4.11.orig/configure.in	2013-02-16 12:22:31.000000000 +0000
++++ php-5.4.11/configure.in	2013-02-16 12:28:09.000000000 +0000
+@@ -1399,9 +1399,6 @@
  ])
  AC_PROG_LIBTOOL
  
