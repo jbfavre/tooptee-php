@@ -4,9 +4,11 @@ Origin: vendor
 Forwarded: no
 Last-Update: 2010-01-18
 
---- a/ext/recode/config9.m4
-+++ b/ext/recode/config9.m4
-@@ -13,6 +13,6 @@ if test "$PHP_RECODE" != "no"; then
+Index: php-5.4.11/ext/recode/config9.m4
+===================================================================
+--- php-5.4.11.orig/ext/recode/config9.m4	2013-02-16 11:45:37.000000000 +0000
++++ php-5.4.11/ext/recode/config9.m4	2013-02-16 11:45:43.000000000 +0000
+@@ -13,6 +13,6 @@
    fi
  
    if test -n "$recode_conflict"; then

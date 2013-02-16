@@ -4,9 +4,11 @@ Origin: vendor
 Forwarded: not-needed
 Last-Update: 2010-01-18
 
---- a/configure.in
-+++ b/configure.in
-@@ -1068,7 +1068,7 @@ if test "$PHP_CLI" = "no"; then
+Index: php-5.4.11/configure.in
+===================================================================
+--- php-5.4.11.orig/configure.in	2013-02-15 23:07:39.000000000 +0000
++++ php-5.4.11/configure.in	2013-02-15 23:07:39.000000000 +0000
+@@ -1068,7 +1068,7 @@
  fi
  
  PHP_ARG_WITH(pear, [whether to install PEAR],
@@ -15,7 +17,7 @@ Last-Update: 2010-01-18
    --without-pear          Do not install PEAR], DEFAULT, yes)
  
  if test "$PHP_PEAR" != "no"; then
-@@ -1098,7 +1098,7 @@ dnl
+@@ -1098,7 +1098,7 @@
    if test "$PHP_PEAR" = "DEFAULT" || test "$PHP_PEAR" = "yes"; then
      case $PHP_LAYOUT in
        GNU) PEAR_INSTALLDIR=$datadir/pear;;
@@ -24,7 +26,7 @@ Last-Update: 2010-01-18
      esac
    fi
  
-@@ -1153,12 +1153,12 @@ test "$program_suffix" = "NONE" && progr
+@@ -1153,12 +1153,12 @@
  
  case $libdir in
    '${exec_prefix}/lib')
@@ -39,7 +41,7 @@ Last-Update: 2010-01-18
      ;;
  esac
  
-@@ -1225,7 +1225,7 @@ EXPANDED_SYSCONFDIR=`eval echo $sysconfd
+@@ -1225,7 +1225,7 @@
  EXPANDED_DATADIR=$datadir
  EXPANDED_PHP_CONFIG_FILE_PATH=`eval echo "$PHP_CONFIG_FILE_PATH"`
  EXPANDED_PHP_CONFIG_FILE_SCAN_DIR=`eval echo "$PHP_CONFIG_FILE_SCAN_DIR"`
@@ -48,9 +50,11 @@ Last-Update: 2010-01-18
  
  exec_prefix=$old_exec_prefix
  libdir=$old_libdir
---- a/ext/ext_skel
-+++ b/ext/ext_skel
-@@ -70,7 +70,7 @@ if test -d "$extname" ; then
+Index: php-5.4.11/ext/ext_skel
+===================================================================
+--- php-5.4.11.orig/ext/ext_skel	2013-02-15 22:26:02.000000000 +0000
++++ php-5.4.11/ext/ext_skel	2013-02-15 23:07:39.000000000 +0000
+@@ -70,7 +70,7 @@
  fi
  
  if test -z "$skel_dir"; then
@@ -59,9 +63,11 @@ Last-Update: 2010-01-18
  fi
  
  ## convert skel_dir to full path
---- a/php.ini-development
-+++ b/php.ini-development
-@@ -702,7 +702,7 @@ default_mimetype = "text/html"
+Index: php-5.4.11/php.ini-development
+===================================================================
+--- php-5.4.11.orig/php.ini-development	2013-02-15 22:26:02.000000000 +0000
++++ php-5.4.11/php.ini-development	2013-02-15 23:07:39.000000000 +0000
+@@ -702,7 +702,7 @@
  ;;;;;;;;;;;;;;;;;;;;;;;;;
  
  ; UNIX: "/path1:/path2"
@@ -70,9 +76,11 @@ Last-Update: 2010-01-18
  ;
  ; Windows: "\path1;\path2"
  ;include_path = ".;c:\php\includes"
---- a/php.ini-production
-+++ b/php.ini-production
-@@ -702,7 +702,7 @@ default_mimetype = "text/html"
+Index: php-5.4.11/php.ini-production
+===================================================================
+--- php-5.4.11.orig/php.ini-production	2013-02-15 22:26:01.000000000 +0000
++++ php-5.4.11/php.ini-production	2013-02-15 23:07:39.000000000 +0000
+@@ -702,7 +702,7 @@
  ;;;;;;;;;;;;;;;;;;;;;;;;;
  
  ; UNIX: "/path1:/path2"
@@ -81,7 +89,7 @@ Last-Update: 2010-01-18
  ;
  ; Windows: "\path1;\path2"
  ;include_path = ".;c:\php\includes"
-@@ -859,51 +859,6 @@ default_socket_timeout = 60
+@@ -859,51 +859,6 @@
  ; If you only provide the name of the extension, PHP will look for it in its
  ; default extension directory.
  ;
@@ -133,9 +141,11 @@ Last-Update: 2010-01-18
  
  ;;;;;;;;;;;;;;;;;;;
  ; Module Settings ;
---- a/sapi/caudium/config.m4
-+++ b/sapi/caudium/config.m4
-@@ -26,8 +26,8 @@ if test "$PHP_CAUDIUM" != "no"; then
+Index: php-5.4.11/sapi/caudium/config.m4
+===================================================================
+--- php-5.4.11.orig/sapi/caudium/config.m4	2013-02-15 22:26:01.000000000 +0000
++++ php-5.4.11/sapi/caudium/config.m4	2013-02-15 23:07:39.000000000 +0000
+@@ -26,8 +26,8 @@
      AC_MSG_ERROR([Could not find a pike in $PHP_CAUDIUM/bin/])
    fi
    if $PIKE -e 'float v; int rel;sscanf(version(), "Pike v%f release %d", v, rel);v += rel/10000.0; if(v < 7.0268) exit(1); exit(0);'; then
@@ -146,7 +156,7 @@ Last-Update: 2010-01-18
      if test -z "$PIKE_INCLUDE_DIR" || test -z "$PIKE_MODULE_DIR"; then
        AC_MSG_ERROR(Failed to figure out Pike module and include directories)
      fi
-@@ -84,7 +84,9 @@ if test "$PHP_CAUDIUM" != "no"; then
+@@ -84,7 +84,9 @@
    PIKE_VERSION=`$PIKE -e 'string v; int rel;sscanf(version(), "Pike v%s release %d", v, rel); write(v+"."+rel);'`   
    AC_DEFINE(HAVE_CAUDIUM,1,[Whether to compile with Caudium support])
    PHP_SELECT_SAPI(caudium, shared, caudium.c)
@@ -157,9 +167,11 @@ Last-Update: 2010-01-18
    RESULT="  *** Pike binary used:         $PIKE
    *** Pike include dir(s) used: $PIKE_INCLUDE_DIR
    *** Pike version:             $PIKE_VERSION"
---- a/sapi/cli/php.1.in
-+++ b/sapi/cli/php.1.in
-@@ -346,13 +346,14 @@ Shows configuration for extension
+Index: php-5.4.11/sapi/cli/php.1.in
+===================================================================
+--- php-5.4.11.orig/sapi/cli/php.1.in	2013-02-15 22:26:01.000000000 +0000
++++ php-5.4.11/sapi/cli/php.1.in	2013-02-15 23:07:39.000000000 +0000
+@@ -346,13 +346,14 @@
  Show configuration file names
  .SH FILES
  .TP 15
@@ -179,8 +191,10 @@ Last-Update: 2010-01-18
  .SH EXAMPLES
  .TP 5
  \fIphp \-r 'echo "Hello World\\n";'\fP
---- a/scripts/Makefile.frag
-+++ b/scripts/Makefile.frag
+Index: php-5.4.11/scripts/Makefile.frag
+===================================================================
+--- php-5.4.11.orig/scripts/Makefile.frag	2013-02-15 22:26:02.000000000 +0000
++++ php-5.4.11/scripts/Makefile.frag	2013-02-15 23:07:39.000000000 +0000
 @@ -3,8 +3,8 @@
  # Build environment install
  #
@@ -192,9 +206,11 @@ Last-Update: 2010-01-18
  
  BUILD_FILES = \
  	scripts/phpize.m4 \
---- a/scripts/php-config.in
-+++ b/scripts/php-config.in
-@@ -6,8 +6,8 @@ datarootdir="@datarootdir@"
+Index: php-5.4.11/scripts/php-config.in
+===================================================================
+--- php-5.4.11.orig/scripts/php-config.in	2013-02-15 22:26:02.000000000 +0000
++++ php-5.4.11/scripts/php-config.in	2013-02-15 23:07:39.000000000 +0000
+@@ -6,8 +6,8 @@
  exec_prefix="@exec_prefix@"
  version="@PHP_VERSION@"
  vernum="@PHP_VERSION_ID@"
@@ -205,8 +221,10 @@ Last-Update: 2010-01-18
  ldflags="@PHP_LDFLAGS@"
  libs="@EXTRA_LIBS@"
  extension_dir='@EXTENSION_DIR@'
---- a/scripts/phpize.in
-+++ b/scripts/phpize.in
+Index: php-5.4.11/scripts/phpize.in
+===================================================================
+--- php-5.4.11.orig/scripts/phpize.in	2013-02-15 22:26:02.000000000 +0000
++++ php-5.4.11/scripts/phpize.in	2013-02-15 23:07:39.000000000 +0000
 @@ -4,8 +4,8 @@
  prefix='@prefix@'
  datarootdir='@datarootdir@'
