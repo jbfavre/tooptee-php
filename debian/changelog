@@ -1,3 +1,11 @@
+php5 (5.4.12-1~tooptee10+1) lucid; urgency=low
+
+  * New upstream version 5.4.12
+  * Reintroduce dpkg-maintscript-helper
+  * Add dependency on backported dpkg
+
+ -- Jean Baptiste Favre <ubuntu@jbfavre.org>  Fri, 22 Feb 2013 11:18:09 +0100
+
 php5 (5.4.11-2~tooptee10+1) lucid; urgency=low
 
   * Sync with Debian
