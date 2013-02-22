@@ -1,8 +1,6 @@
-Index: php-5.4.11/scripts/phpize.in
-===================================================================
---- php-5.4.11.orig/scripts/phpize.in	2013-02-15 23:07:39.000000000 +0000
-+++ php-5.4.11/scripts/phpize.in	2013-02-15 23:07:40.000000000 +0000
-@@ -6,10 +6,16 @@
+--- a/scripts/phpize.in
++++ b/scripts/phpize.in
+@@ -6,10 +6,16 @@ datarootdir='@datarootdir@'
  exec_prefix="`eval echo @exec_prefix@`"
  phpdir="$prefix/lib/php5/build"
  includedir="$prefix/include/php5"
@@ -20,7 +18,7 @@ Index: php-5.4.11/scripts/phpize.in
  FILES="acinclude.m4 Makefile.global config.sub config.guess ltmain.sh run-tests*.php"
  CLEAN_FILES="$FILES *.o *.lo *.la .deps .libs/ build/ include/ modules/ install-sh \
  	mkinstalldirs missing config.nice config.sub config.guess configure configure.in \
-@@ -145,8 +151,9 @@
+@@ -145,8 +151,9 @@ phpize_copy_files()
    test -d build || mkdir build
   
    (cd "$phpdir" && cp $FILES_BUILD "$builddir"/build)

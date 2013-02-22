@@ -1,8 +1,6 @@
-Index: php-5.4.11/ext/standard/info.c
-===================================================================
---- php-5.4.11.orig/ext/standard/info.c	2013-02-16 11:45:37.000000000 +0000
-+++ php-5.4.11/ext/standard/info.c	2013-02-16 11:45:42.000000000 +0000
-@@ -800,6 +800,16 @@
+--- a/ext/standard/info.c
++++ b/ext/standard/info.c
+@@ -800,6 +800,16 @@ PHPAPI void php_print_info(int flag TSRM
  			zend_html_puts(zend_version, strlen(zend_version) TSRMLS_CC);
  		}
  		php_info_print_box_end();

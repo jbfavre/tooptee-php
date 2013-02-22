@@ -1,8 +1,6 @@
-Index: php-5.4.11/sapi/fpm/fpm/fpm_conf.c
-===================================================================
---- php-5.4.11.orig/sapi/fpm/fpm/fpm_conf.c	2013-02-16 11:45:36.000000000 +0000
-+++ php-5.4.11/sapi/fpm/fpm/fpm_conf.c	2013-02-16 11:45:45.000000000 +0000
-@@ -1609,7 +1609,7 @@
+--- a/sapi/fpm/fpm/fpm_conf.c
++++ b/sapi/fpm/fpm/fpm_conf.c
+@@ -1609,7 +1609,7 @@ int fpm_conf_init_main(int test_conf, in
  		char *tmp;
  
  		if (fpm_globals.prefix == NULL) {
