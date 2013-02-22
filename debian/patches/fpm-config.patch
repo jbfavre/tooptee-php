@@ -4,10 +4,8 @@ Origin: vendor
 Forwarded: not-needed
 Last-Update: 2010-07-30
 
-Index: php-5.4.11/sapi/fpm/php-fpm.conf.in
-===================================================================
---- php-5.4.11.orig/sapi/fpm/php-fpm.conf.in	2013-02-16 12:22:19.000000000 +0000
-+++ php-5.4.11/sapi/fpm/php-fpm.conf.in	2013-02-16 12:28:15.000000000 +0000
+--- a/sapi/fpm/php-fpm.conf.in
++++ b/sapi/fpm/php-fpm.conf.in
 @@ -12,7 +12,7 @@
  ; Relative path can also be used. They will be prefixed by:
  ;  - the global prefix if it's been set (-p arguement)
@@ -45,7 +43,7 @@ Index: php-5.4.11/sapi/fpm/php-fpm.conf.in
  ; Start a new pool named 'www'.
  ; the variable $pool can we used in any directive and will be replaced by the
  ; pool name ('www' here)
-@@ -458,7 +462,7 @@
+@@ -458,7 +462,7 @@ pm.max_spare_servers = 3
  ; Chdir to this directory at the start.
  ; Note: relative path can be used.
  ; Default Value: current directory or / when chroot

@@ -7,11 +7,9 @@ Bug-Ubuntu: https://bugs.launchpad.net/bugs/739977
 Forwarded: not-needed
 Reviewed-by: Steve Langasek <steve.langasek@ubuntu.com>
 
-Index: php-5.4.11/ext/dba/config.m4
-===================================================================
---- php-5.4.11.orig/ext/dba/config.m4	2013-02-16 12:28:14.000000000 +0000
-+++ php-5.4.11/ext/dba/config.m4	2013-02-16 12:28:16.000000000 +0000
-@@ -239,7 +239,7 @@
+--- a/ext/dba/config.m4
++++ b/ext/dba/config.m4
+@@ -239,7 +239,7 @@ AC_DEFUN([PHP_DBA_DB_CHECK],[
      AC_MSG_ERROR([DBA: Could not find necessary header file(s).])
    fi
    for LIB in $2; do
@@ -20,11 +18,9 @@ Index: php-5.4.11/ext/dba/config.m4
        lib_found="";
        PHP_TEMP_LDFLAGS(-L$THIS_PREFIX/$PHP_LIBDIR, -l$LIB,[
          AC_TRY_LINK([
-Index: php-5.4.11/ext/gd/config.m4
-===================================================================
---- php-5.4.11.orig/ext/gd/config.m4	2013-02-16 12:22:24.000000000 +0000
-+++ php-5.4.11/ext/gd/config.m4	2013-02-16 12:28:16.000000000 +0000
-@@ -159,7 +159,7 @@
+--- a/ext/gd/config.m4
++++ b/ext/gd/config.m4
+@@ -159,7 +159,7 @@ AC_DEFUN([PHP_GD_XPM],[
    if test "$PHP_XPM_DIR" != "no"; then
  
      for i in $PHP_XPM_DIR /usr/local /usr/X11R6 /usr; do
@@ -33,11 +29,9 @@ Index: php-5.4.11/ext/gd/config.m4
      done
  
      if test -z "$GD_XPM_DIR"; then
-Index: php-5.4.11/ext/pcre/config0.m4
-===================================================================
---- php-5.4.11.orig/ext/pcre/config0.m4	2013-02-16 12:22:29.000000000 +0000
-+++ php-5.4.11/ext/pcre/config0.m4	2013-02-16 12:28:16.000000000 +0000
-@@ -21,7 +21,7 @@
+--- a/ext/pcre/config0.m4
++++ b/ext/pcre/config0.m4
+@@ -21,7 +21,7 @@ PHP_ARG_WITH(pcre-regex,,
      AC_MSG_RESULT([$PCRE_INCDIR])
  
      AC_MSG_CHECKING([for PCRE library location])
@@ -46,11 +40,9 @@ Index: php-5.4.11/ext/pcre/config0.m4
        test -f $j/libpcre.a || test -f $j/libpcre.$SHLIB_SUFFIX_NAME && PCRE_LIBDIR=$j
      done
      
-Index: php-5.4.11/acinclude.m4
-===================================================================
---- php-5.4.11.orig/acinclude.m4	2013-02-16 12:22:20.000000000 +0000
-+++ php-5.4.11/acinclude.m4	2013-02-16 12:28:16.000000000 +0000
-@@ -2282,7 +2282,7 @@
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -2282,7 +2282,7 @@ AC_DEFUN([PHP_SETUP_KERBEROS],[
      fi
  
      for i in $PHP_KERBEROS; do
@@ -59,7 +51,7 @@ Index: php-5.4.11/acinclude.m4
          PHP_KERBEROS_DIR=$i
          break
        fi
-@@ -2359,7 +2359,7 @@
+@@ -2359,7 +2359,7 @@ AC_DEFUN([PHP_SETUP_OPENSSL],[
        if test -r $i/include/openssl/evp.h; then
          OPENSSL_INCDIR=$i/include
        fi
@@ -68,11 +60,9 @@ Index: php-5.4.11/acinclude.m4
          OPENSSL_LIBDIR=$i/$PHP_LIBDIR
        fi
        test -n "$OPENSSL_INCDIR" && test -n "$OPENSSL_LIBDIR" && break
-Index: php-5.4.11/ext/ldap/config.m4
-===================================================================
---- php-5.4.11.orig/ext/ldap/config.m4	2013-02-16 12:22:30.000000000 +0000
-+++ php-5.4.11/ext/ldap/config.m4	2013-02-16 12:28:16.000000000 +0000
-@@ -95,7 +95,7 @@
+--- a/ext/ldap/config.m4
++++ b/ext/ldap/config.m4
+@@ -95,7 +95,7 @@ if test "$PHP_LDAP" != "no"; then
      LDAP_PTHREAD=
    fi
  
@@ -81,11 +71,9 @@ Index: php-5.4.11/ext/ldap/config.m4
      PHP_ADD_LIBRARY_WITH_PATH(lber, $LDAP_LIBDIR, LDAP_SHARED_LIBADD)
      PHP_ADD_LIBRARY_WITH_PATH(ldap, $LDAP_LIBDIR, LDAP_SHARED_LIBADD)
  
-Index: php-5.4.11/ext/mssql/config.m4
-===================================================================
---- php-5.4.11.orig/ext/mssql/config.m4	2013-02-16 12:22:21.000000000 +0000
-+++ php-5.4.11/ext/mssql/config.m4	2013-02-16 12:28:16.000000000 +0000
-@@ -38,7 +38,7 @@
+--- a/ext/mssql/config.m4
++++ b/ext/mssql/config.m4
+@@ -38,7 +38,7 @@ if test "$PHP_MSSQL" != "no"; then
      fi
    fi  
  
@@ -94,11 +82,9 @@ Index: php-5.4.11/ext/mssql/config.m4
       AC_MSG_ERROR(Could not find $FREETDS_INSTALLATION_DIR/$PHP_LIBDIR/libsybdb.[a|so])
    fi
  
-Index: php-5.4.11/ext/pdo_dblib/config.m4
-===================================================================
---- php-5.4.11.orig/ext/pdo_dblib/config.m4	2013-02-16 12:22:22.000000000 +0000
-+++ php-5.4.11/ext/pdo_dblib/config.m4	2013-02-16 12:28:16.000000000 +0000
-@@ -46,7 +46,7 @@
+--- a/ext/pdo_dblib/config.m4
++++ b/ext/pdo_dblib/config.m4
+@@ -46,7 +46,7 @@ if test "$PHP_PDO_DBLIB" != "no"; then
      PHP_LIBDIR=lib
    fi
  
@@ -107,11 +93,9 @@ Index: php-5.4.11/ext/pdo_dblib/config.m4
       AC_MSG_ERROR(Could not find $PDO_FREETDS_INSTALLATION_DIR/$PHP_LIBDIR/libsybdb.[a|so])
    fi
  
-Index: php-5.4.11/ext/mysql/config.m4
-===================================================================
---- php-5.4.11.orig/ext/mysql/config.m4	2013-02-16 12:22:21.000000000 +0000
-+++ php-5.4.11/ext/mysql/config.m4	2013-02-16 12:28:16.000000000 +0000
-@@ -92,7 +92,7 @@
+--- a/ext/mysql/config.m4
++++ b/ext/mysql/config.m4
+@@ -92,7 +92,7 @@ Note that the MySQL client library is no
      PHP_LIBDIR=lib
    fi
  

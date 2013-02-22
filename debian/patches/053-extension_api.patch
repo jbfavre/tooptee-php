@@ -5,11 +5,9 @@ Origin: vendor
 Forwarded: no
 Last-Update: 2010-01-18
 
-Index: php-5.4.11/configure.in
-===================================================================
---- php-5.4.11.orig/configure.in	2013-02-16 12:28:10.000000000 +0000
-+++ php-5.4.11/configure.in	2013-02-16 12:28:12.000000000 +0000
-@@ -1177,8 +1177,13 @@
+--- a/configure.in
++++ b/configure.in
+@@ -1177,8 +1177,13 @@ dnl Build extension directory path
  
  ZEND_MODULE_API_NO=`$EGREP '#define ZEND_MODULE_API_NO ' $srcdir/Zend/zend_modules.h|$SED 's/#define ZEND_MODULE_API_NO //'`
  
@@ -24,7 +22,7 @@ Index: php-5.4.11/configure.in
    if test "$oldstyleextdir" = "yes"; then
      if test "$PHP_DEBUG" = "1"; then
        part1=debug
-@@ -1321,6 +1326,7 @@
+@@ -1321,6 +1326,7 @@ PHP_SUBST(CXX)
  PHP_SUBST(CXXFLAGS)
  PHP_SUBST(CXXFLAGS_CLEAN)
  PHP_SUBST_OLD(DEBUG_CFLAGS)
@@ -32,11 +30,9 @@ Index: php-5.4.11/configure.in
  PHP_SUBST_OLD(EXTENSION_DIR)
  PHP_SUBST_OLD(EXTRA_LDFLAGS)
  PHP_SUBST_OLD(EXTRA_LDFLAGS_PROGRAM)
-Index: php-5.4.11/scripts/php-config.in
-===================================================================
---- php-5.4.11.orig/scripts/php-config.in	2013-02-16 12:28:10.000000000 +0000
-+++ php-5.4.11/scripts/php-config.in	2013-02-16 12:28:12.000000000 +0000
-@@ -19,6 +19,7 @@
+--- a/scripts/php-config.in
++++ b/scripts/php-config.in
+@@ -19,6 +19,7 @@ php_cli_binary=NONE
  php_cgi_binary=NONE
  configure_options="@CONFIGURE_OPTIONS@"
  php_sapis="@PHP_INSTALLED_SAPIS@"
@@ -44,7 +40,7 @@ Index: php-5.4.11/scripts/php-config.in
  
  # Set php_cli_binary and php_cgi_binary if available
  for sapi in $php_sapis; do
-@@ -57,6 +58,8 @@
+@@ -57,6 +58,8 @@ case "$1" in
    echo $include_dir;;
  --php-binary)
    echo $php_binary;;
@@ -53,7 +49,7 @@ Index: php-5.4.11/scripts/php-config.in
  --php-sapis)
    echo $php_sapis;;
  --configure-options)
-@@ -80,6 +83,7 @@
+@@ -80,6 +83,7 @@ Options:
    --man-dir           [$man_dir]
    --php-binary        [$php_binary]
    --php-sapis         [$php_sapis]
